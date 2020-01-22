@@ -19,5 +19,4 @@
         android:layout_alignParentRight="true"
         android:text="Placeholder message"
         />
-
 </RelativeLayout>

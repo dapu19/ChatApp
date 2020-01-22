@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/message_body"
         android:layout_below="@+id/name"
+        android:textColor="#fff"
         android:layout_alignLeft="@+id/name"
         android:background="@drawable/their_message"
         android:paddingVertical="12dp"

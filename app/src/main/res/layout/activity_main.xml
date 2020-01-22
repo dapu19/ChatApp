@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:clipToPadding="false"
     android:focusableInTouchMode="true"
-    tools:context="com.example.scaledrone.chat.MainActivity">
+    tools:context="com.dapu.chatapp.MainActivity">
 
     <ListView
         android:layout_width="match_parent"
@@ -43,4 +43,3 @@
             android:background="@drawable/ic_send_black_24dp"/>
     </LinearLayout>
 </LinearLayout>
-
