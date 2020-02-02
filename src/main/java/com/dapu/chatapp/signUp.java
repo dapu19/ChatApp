@@ -14,7 +14,9 @@ public class signUp extends AppCompatActivity {
     }
 
     public void register(android.view.View view) {
-        // Validate and register.
+        Intent myIntent = new Intent(getBaseContext(), homeActivity.class);
+        startActivity(myIntent);
+        //    }
     }
 
     public void goToLogin(android.view.View view) {
