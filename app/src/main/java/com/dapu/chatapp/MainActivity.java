@@ -1,36 +1,55 @@
 package com.dapu.chatapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
 
-public class MainActivity extends AppCompatActivity implements RoomListener{
+public class MainActivity extends AppCompatActivity {//implements RoomListener{
 
-    private String channelID = "CHANNEL_ID_FROM_YOUR_SCALEDRONE_DASHBOARD";
-    private String roomName = "observable-room";
-    private EditText editText;
-    private Scaledrone scaledrone;
+    //private String channelID = "CHANNEL_ID_FROM_YOUR_SCALEDRONE_DASHBOARD";
+    //private String roomName = "observable-room";
+    private EditText email;
+    private EditText password;
+    private Button login;
+    private Button signUp;
+    //private Scaledrone scaledrone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        editText = (EditText) findViewById(R.id.editText);
+        //editText = (EditText) findViewById(R.id.editText);
+        login = findViewById(R.id.login);
+        signUp = findViewById(R.id.signUp);
     }
 
-    @Override
-    public void onOpen(Room room) {
-        System.out.println("Connected to room");
+    public void Login(android.view.View view) {
+        // Validate and sign in
+        email = findViewById(R.id.email);
+        password = findViewById(R.id.password);
+        Sender sender = new Sender();
+        sender.execute(email.getText().toString(),password.getText().toString());
     }
 
-    @Override
-    public void onOpenFailure(Room room, Exception ex) {
-        System.err.println(ex);
+    public void signUp(android.view.View view) {
+        Intent myIntent = new Intent(getBaseContext(), signUp.class);
+        startActivity(myIntent);
     }
+    //@Override
+    //public void onOpen(Room room) {
+        //System.out.println("Connected to room");
+    //}
 
-    @Override
-    public void onMessage(Room room, com.scaledrone.lib.Message receivedMessage) {
+    //@Override
+    //public void onOpenFailure(Room room, Exception ex) {
+        //System.err.println(ex);
+    //}
+
+    //@Override
+    //public void onMessage(Room room, com.scaledrone.lib.Message receivedMessage) {
         //TODO
-    }
+    //}
 
 }
