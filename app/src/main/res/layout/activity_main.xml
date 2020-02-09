@@ -84,7 +84,6 @@
         android:background="@drawable/button"
         android:onClick="Login"
         android:text="Login"
-
         android:textColor="#000000"
         android:textColorHint="#000000"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
