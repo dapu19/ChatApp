@@ -130,7 +130,7 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/uid"
                 android:layout_width="127dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -149,7 +149,7 @@
                 app:layout_constraintTop_toTopOf="@id/cardView2" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/email"
                 android:layout_width="233dp"
                 android:layout_height="52dp"
                 android:layout_alignParentStart="true"
