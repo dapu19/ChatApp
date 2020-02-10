@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ChatApp</string>
+    <string name="welcome">Welcome</string>
+    <string name="login_failed">Login failed, please try again</string>
+    <string name="invalid_username">The username entered is invalid</string>
+    <string name="invalid_password">The password entered is invalid</string>
 </resources>
