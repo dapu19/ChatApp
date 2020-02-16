@@ -10,6 +10,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
 public class homeActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -32,9 +33,14 @@ public class homeActivity extends AppCompatActivity {
         }
     }
 
-
     public void message(android.view.View view) {
         Intent myIntent = new Intent(getBaseContext(), messageActivity.class);
+        startActivity(myIntent);
+    }
+
+    public void logout(android.view.View view){
+        FirebaseAuth.getInstance().signOut();
+        Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
         startActivity(myIntent);
     }
 }

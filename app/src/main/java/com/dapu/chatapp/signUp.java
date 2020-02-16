@@ -51,6 +51,8 @@ public class signUp extends AppCompatActivity {
         System.out.println(password);
 
         if(conPassword.equals(password)) {
+            //updateUI(null);
+
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -81,10 +83,10 @@ public class signUp extends AppCompatActivity {
 
     public void updateUI(com.google.firebase.auth.FirebaseUser user){
         if(user==null) {
-            Intent myIntent = new Intent(getBaseContext(), signUp.class);
+            Intent myIntent = new Intent(getBaseContext(), userInfo.class);
             startActivity(myIntent);
         }else{
-            Intent myIntent = new Intent(getBaseContext(), homeActivity.class);
+            Intent myIntent = new Intent(getBaseContext(), userInfo.class);
             startActivity(myIntent);
         }
     }

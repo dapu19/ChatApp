@@ -50,7 +50,7 @@
                 android:layout_weight="1"
                 android:clickable="true"
                 android:onClick="message"
-                app:cardBackgroundColor="#F56609"
+                app:cardBackgroundColor="#24253F"
                 app:cardCornerRadius="10dp"
                 app:cardMaxElevation="6dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -107,7 +107,7 @@
                 android:layout_marginTop="512dp"
                 android:layout_marginBottom="100dp"
                 android:layout_weight="1"
-                app:cardBackgroundColor="#FFC300 "
+                app:cardBackgroundColor="#24253F "
                 app:cardCornerRadius="10dp"
                 app:cardMaxElevation="6dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -185,12 +185,14 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="376dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="360dp"
+        android:clickable="true"
+        android:onClick="logout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/setting" />
+        app:srcCompat="@drawable/logout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
