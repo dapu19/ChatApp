@@ -39,6 +39,9 @@ public class signUp extends AppCompatActivity {
 
     public void register(android.view.View view) {
 
+        name = findViewById(R.id.fullName);
+        //fullName = name.getText().toString();
+
         mail = findViewById(R.id.email);
         email = mail.getText().toString();
 

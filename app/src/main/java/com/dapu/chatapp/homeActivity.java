@@ -15,7 +15,7 @@ public class homeActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private TextView email;
-    private TextView uid;
+    private TextView fullName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,18 +23,18 @@ public class homeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        uid = findViewById(R.id.uid);
+        fullName = findViewById(R.id.fullName);
         email = findViewById(R.id.email);
         if(user != null){
             String email1 = user.getEmail();
-            String uid1 = user.getUid();
-            uid.setText(uid1);
+            String fn1 = user.getDisplayName();
+            fullName.setText(fn1);
             email.setText(email1);
         }
     }
 
     public void message(android.view.View view) {
-        Intent myIntent = new Intent(getBaseContext(), messageActivity.class);
+        Intent myIntent = new Intent(getBaseContext(), ListOfMatchesActivity.class);
         startActivity(myIntent);
     }
 
