@@ -3,15 +3,14 @@
     package="com.dapu.chatapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-
     <application
+
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".MainActivity"></activity>
+
         <activity android:name=".Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,13 +18,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListOfMatchesActivity"></activity>
-        <activity android:name=".signUp"></activity>
-        <activity android:name=".homeActivity"></activity>
-        <activity android:name=".messageActivity"></activity>
-        <activity android:name=".EnterDetails"></activity>
-        <activity android:name=".LoginPage"></activity>
-        <activity android:name=".userInfo"></activity>
-    </application>
+        <activity android:name=".MainActivity">
+        </activity>
+        <activity android:name=".signUp">
 
+        </activity>
+        <activity android:name=".homeActivity">
+
+        </activity>
+        <activity android:name=".messageActivity">
+
+        </activity>
+        <activity android:name=".EnterDetails">
+
+        </activity>
+        <activity android:name=".LoginPage">
+
+        </activity>
+        <activity android:name=".userInfo">
+
+        </activity>
+        <activity android:name=".upload">
+
+        </activity>
+    </application>
 </manifest>

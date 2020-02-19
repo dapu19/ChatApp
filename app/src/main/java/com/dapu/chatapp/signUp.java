@@ -39,9 +39,6 @@ public class signUp extends AppCompatActivity {
 
     public void register(android.view.View view) {
 
-        name = findViewById(R.id.fullName);
-        //fullName = name.getText().toString();
-
         mail = findViewById(R.id.email);
         email = mail.getText().toString();
 
@@ -68,8 +65,8 @@ public class signUp extends AppCompatActivity {
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                //Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
-                                //        Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
                                 updateUI(null);
                             }
 
@@ -86,10 +83,10 @@ public class signUp extends AppCompatActivity {
 
     public void updateUI(com.google.firebase.auth.FirebaseUser user){
         if(user==null) {
-            Intent myIntent = new Intent(getBaseContext(), userInfo.class);
+            Intent myIntent = new Intent(getBaseContext(), upload.class);
             startActivity(myIntent);
         }else{
-            Intent myIntent = new Intent(getBaseContext(), userInfo.class);
+            Intent myIntent = new Intent(getBaseContext(), upload.class);
             startActivity(myIntent);
         }
     }
