@@ -29,7 +29,7 @@ public class homeActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private StorageReference mStorageRef;
     private TextView email;
-    private TextView uid;
+    private TextView fullName;
     private ImageView pic;
     private String url;
 
@@ -40,13 +40,13 @@ public class homeActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         mStorageRef = FirebaseStorage.getInstance().getReference();
-        uid = findViewById(R.id.uid);
+        fullName = findViewById(R.id.fullName);
         email = findViewById(R.id.email);
         pic = findViewById(R.id.imageView);
         if(user != null){
             String email1 = user.getEmail();
             String uid1 = user.getUid();
-            uid.setText(uid1);
+            fullName.setText(uid1);
             email.setText(email1);
             try{
                 url = user.getUid();

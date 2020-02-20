@@ -18,6 +18,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class signUp extends AppCompatActivity {
     public static final String TAG = "YOUR-TAG-NAME";
@@ -28,6 +32,7 @@ public class signUp extends AppCompatActivity {
     private String email;
     private String password;
     private String conPassword;
+    private String fullname;
     private FirebaseAuth mAuth;
 
     @Override
@@ -49,7 +54,8 @@ public class signUp extends AppCompatActivity {
         conPassword = cpass.getText().toString();
         System.out.println(conPassword);
         System.out.println(password);
-
+        name = findViewById(R.id.fullName);
+        fullname = name.getText().toString();
         if(conPassword.equals(password)) {
             //updateUI(null);
 
@@ -61,6 +67,7 @@ public class signUp extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
+                                addUser(user.getUid(), fullname );
                                 updateUI(user);
                             } else {
                                 // If sign in fails, display a message to the user.
@@ -81,12 +88,23 @@ public class signUp extends AppCompatActivity {
         startActivity(myIntent);
     }
 
+    public void addUser(String uid, String name){
+        // Write a message to the database
+        FirebaseUser user = mAuth.getCurrentUser();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("users");
+        //myRef.setValue("Hello, World!");
+        DatabaseReference usersRef = myRef.child("users");
+        //String id = myRef.push().getKey();
+        myRef.child(uid).setValue(name);
+    }
+
     public void updateUI(com.google.firebase.auth.FirebaseUser user){
         if(user==null) {
-            Intent myIntent = new Intent(getBaseContext(), upload.class);
+            Intent myIntent = new Intent(getBaseContext(), homeActivity.class);
             startActivity(myIntent);
         }else{
-            Intent myIntent = new Intent(getBaseContext(), upload.class);
+            Intent myIntent = new Intent(getBaseContext(), homeActivity.class);
             startActivity(myIntent);
         }
     }
