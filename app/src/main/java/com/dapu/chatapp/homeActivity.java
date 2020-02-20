@@ -74,7 +74,7 @@ public class homeActivity extends AppCompatActivity {
     }
 
     public void message(android.view.View view) {
-        Intent myIntent = new Intent(getBaseContext(), messageActivity.class);
+        Intent myIntent = new Intent(getBaseContext(), ListOfMatchesActivity.class);
         startActivity(myIntent);
     }
 

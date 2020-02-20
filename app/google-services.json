@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "947608157606-3otc4jnhddsblnutmuc7fbdfgrfq7g5a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dapu.chatapp",
+            "certificate_hash": "3b8c0561e908a13d9952cd9febc626e438801f8b"
+          }
+        },
+        {
+          "client_id": "947608157606-jmpibm3sl6l25fav6d6f7dshc48kq4od.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dapu.chatapp",
+            "certificate_hash": "6eb5c9d0caea72d81260069a1d8195ad0bb28d7c"
+          }
+        },
+        {
           "client_id": "947608157606-782s4kpophkj25sl5desrh0oa71ms98l.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

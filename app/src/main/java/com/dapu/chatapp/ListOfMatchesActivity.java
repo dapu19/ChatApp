@@ -7,7 +7,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import java.util.HashMap;
+import java.util.Map;
 
+import com.firebase.client.Firebase;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,6 +27,8 @@ import java.util.List;
 public class ListOfMatchesActivity extends AppCompatActivity {
 
     ListView list;
+    private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,26 +38,49 @@ public class ListOfMatchesActivity extends AppCompatActivity {
 
         final ArrayList arrayList = new ArrayList();
 
-        arrayList.add("Hello");
-        arrayList.add("bitch");
-        arrayList.add("boy");
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = mAuth.getCurrentUser();
+
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference().child("users");
+        DatabaseReference ref = database.getReference("users");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String fullName = dataSnapshot.getValue().toString();
-                arrayList.add(fullName);
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    if(!(user.getUid().equals(snapshot.getKey()))) {
+                        String fullName = snapshot.getValue().toString();
+                        Log.e("Full name", fullName);
+                        arrayList.add(fullName);
+                    }
+
+                }
+                Log.e("array", arrayList.toString());
+                Show(arrayList);
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 arrayList.add("FAIL");
 
             }
+
+
+
         });
+
+
+
+
+
+
+
+
+        }
+    public void Show(ArrayList arrayList){
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayList);
         list.setAdapter(arrayAdapter);
     }
+
 }
