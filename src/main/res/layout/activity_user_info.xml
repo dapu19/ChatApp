@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    tools:context=".signUp"
+    tools:layout_editor_absoluteY="25dp">
+
+
+    <Button
+        android:id="@+id/signUp"
+        android:layout_width="265dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="73dp"
+        android:layout_marginEnd="73dp"
+        android:layout_marginBottom="120dp"
+        android:background="@drawable/button"
+        android:onClick="register"
+        android:text="Submit"
+        android:textColor="#8D07A3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <ToggleButton
+        android:id="@+id/field0"
+        android:layout_width="90dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="184dp"
+        android:background="@drawable/button_toggle"
+        android:ems="10"
+        android:fontFamily="sans-serif-medium"
+        android:text="Sports"
+        android:textColor="#000"
+        android:textColorHint="#000"
+        android:textOff="Sports"
+        android:textOn="Sports"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.056"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ToggleButton
+        android:id="@+id/field1"
+        android:layout_width="90dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="184dp"
+        android:background="@drawable/button_toggle"
+        android:ems="10"
+        android:fontFamily="sans-serif-medium"
+        android:text="Sports"
+        android:textColor="#000"
+        android:textColorHint="#000"
+        android:textOff="Sports"
+        android:textOn="Sports"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ToggleButton
+        android:id="@+id/field2"
+        android:layout_width="90dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="184dp"
+        android:background="@drawable/button_toggle"
+        android:ems="10"
+        android:fontFamily="sans-serif-medium"
+        android:text="Sports"
+        android:textColor="#000"
+        android:textColorHint="#000"
+        android:textOff="Sports"
+        android:textOn="Sports"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.909"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ToggleButton
+        android:id="@+id/field3"
+        android:layout_width="90dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="276dp"
+        android:background="@drawable/button_toggle"
+        android:ems="10"
+        android:fontFamily="sans-serif-medium"
+        android:text="Sports"
+        android:textColor="#000"
+        android:textColorHint="#000"
+        android:textOff="Sports"
+        android:textOn="Sports"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ToggleButton
+        android:id="@+id/field4"
+        android:layout_width="90dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="276dp"
+        android:background="@drawable/button_toggle"
+        android:ems="10"
+        android:fontFamily="sans-serif-medium"
+        android:text="Sports"
+        android:textColor="#000"
+        android:textColorHint="#000"
+        android:textOff="Sports"
+        android:textOn="Sports"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ToggleButton
+        android:id="@+id/field5"
+        android:layout_width="90dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="276dp"
+        android:background="@drawable/button_toggle"
+        android:ems="10"
+        android:fontFamily="sans-serif-medium"
+        android:text="Sports"
+        android:textColor="#000"
+        android:textColorHint="#000"
+        android:textOff="Sports"
+        android:textOn="Sports"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.909"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ToggleButton
+        android:id="@+id/field6"
+        android:layout_width="90dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="380dp"
+        android:background="@drawable/button_toggle"
+        android:ems="10"
+        android:fontFamily="sans-serif-medium"
+        android:text="Sports"
+        android:textColor="#000"
+        android:textColorHint="#000"
+        android:textOff="Sports"
+        android:textOn="Sports"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.056"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ToggleButton
+        android:id="@+id/field7"
+        android:layout_width="90dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="380dp"
+        android:background="@drawable/button_toggle"
+        android:ems="10"
+        android:fontFamily="sans-serif-medium"
+        android:text="Sports"
+        android:textColor="#000"
+        android:textColorHint="#000"
+        android:textOff="Sports"
+        android:textOn="Sports"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ToggleButton
+        android:id="@+id/field8"
+        android:layout_width="90dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="380dp"
+        android:background="@drawable/button_toggle"
+        android:ems="10"
+        android:fontFamily="sans-serif-medium"
+        android:text="Sports"
+        android:textColor="#000"
+        android:textColorHint="#000"
+        android:textOff="Sports"
+        android:textOn="Sports"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.909"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Register"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:baselineAligned="false"
+        android:fontFamily="sans-serif-medium"
+        android:text="Select from the following:"
+        android:textColor="#fff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

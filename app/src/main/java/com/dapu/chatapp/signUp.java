@@ -32,7 +32,7 @@ public class signUp extends AppCompatActivity {
     private String email;
     private String password;
     private String conPassword;
-    private String fullName;
+    private String fullname;
     private FirebaseAuth mAuth;
 
     @Override
@@ -44,9 +44,6 @@ public class signUp extends AppCompatActivity {
 
     public void register(android.view.View view) {
 
-        name = findViewById(R.id.fullName);
-        fullName = name.getText().toString();
-
         mail = findViewById(R.id.email);
         email = mail.getText().toString();
 
@@ -57,7 +54,8 @@ public class signUp extends AppCompatActivity {
         conPassword = cpass.getText().toString();
         System.out.println(conPassword);
         System.out.println(password);
-
+        name = findViewById(R.id.fullName);
+        fullname = name.getText().toString();
         if(conPassword.equals(password)) {
             //updateUI(null);
 
@@ -67,34 +65,22 @@ public class signUp extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
-                                Log.e(TAG, "createUserWithEmail:success");
+                                Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
+                                addUser(user.getUid(), fullname );
                                 updateUI(user);
                             } else {
                                 // If sign in fails, display a message to the user.
-                                Log.e(TAG, "createUserWithEmail:failure", task.getException());
-                                //Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
-                                //        Toast.LENGTH_SHORT).show();
+                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                Toast.makeText(getApplicationContext(), "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
                                 updateUI(null);
                             }
 
                             // ...
                         }
                     });
-            mAuth.signOut();
-            mAuth.signInWithEmailAndPassword(email, password);
-            addUser();
-            mAuth.signOut();
         }
-    }
-
-    private void addUser() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        //String path = "users/" + mAuth.getUid();
-        DatabaseReference ref = database.getReference("users");
-        Log.e("!!!!!", "!!!!!!!!");
-        ref.child(fullName).setValue(mAuth.getUid());
-        Log.e("!!!!!", "!!!!!!!!");
     }
 
     public void goToLogin(android.view.View view) {
@@ -102,12 +88,23 @@ public class signUp extends AppCompatActivity {
         startActivity(myIntent);
     }
 
+    public void addUser(String uid, String name){
+        // Write a message to the database
+        FirebaseUser user = mAuth.getCurrentUser();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("users");
+        //myRef.setValue("Hello, World!");
+        DatabaseReference usersRef = myRef.child("users");
+        //String id = myRef.push().getKey();
+        myRef.child(uid).setValue(name);
+    }
+
     public void updateUI(com.google.firebase.auth.FirebaseUser user){
         if(user==null) {
-            Intent myIntent = new Intent(getBaseContext(), userInfo.class);
+            Intent myIntent = new Intent(getBaseContext(), homeActivity.class);
             startActivity(myIntent);
         }else{
-            Intent myIntent = new Intent(getBaseContext(), userInfo.class);
+            Intent myIntent = new Intent(getBaseContext(), homeActivity.class);
             startActivity(myIntent);
         }
     }
