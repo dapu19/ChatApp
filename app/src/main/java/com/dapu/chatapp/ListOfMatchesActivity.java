@@ -70,7 +70,7 @@ public class ListOfMatchesActivity extends AppCompatActivity implements AdapterV
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
         Log.i("List View", "You clicked item: " + id + " at position: " + position);
         Intent intent = new Intent();
-        intent.setClass(this, homeActivity.class);
+        intent.setClass(this, chatActivity.class);
         intent.putExtra("position", position);
         intent.putExtra("id", id);
         startActivity(intent);

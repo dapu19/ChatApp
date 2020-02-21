@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "947608157606-3otc4jnhddsblnutmuc7fbdfgrfq7g5a.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.dapu.chatapp",
-            "certificate_hash": "3b8c0561e908a13d9952cd9febc626e438801f8b"
-          }
-        },
-        {
           "client_id": "947608157606-jmpibm3sl6l25fav6d6f7dshc48kq4od.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
