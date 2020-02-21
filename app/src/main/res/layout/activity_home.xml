@@ -156,7 +156,6 @@
                 android:layout_centerHorizontal="true"
                 android:gravity="center_horizontal"
                 android:fontFamily="sans-serif-medium"
-                android:text="johnappleseed@gmail.com"
                 android:textColor="#fff"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,6 +19,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -43,6 +46,11 @@ public class homeActivity extends AppCompatActivity {
         fullName = findViewById(R.id.fullName);
         email = findViewById(R.id.email);
         pic = findViewById(R.id.imageView);
+
+
+        //How to get id for potentially messaging
+        //Log.e("Token", FirebaseInstanceId.getInstance().getInstanceId().toString());
+
         if(user != null){
             String email1 = user.getEmail();
             String uid1 = user.getUid();
