@@ -31,7 +31,7 @@ public class ListOfMatchesActivity extends AppCompatActivity implements AdapterV
 
     ListView list;
     private FirebaseAuth mAuth;
-
+    final HashMap<String, String> name_to_id = new HashMap<String, String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +45,9 @@ public class ListOfMatchesActivity extends AppCompatActivity implements AdapterV
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mAuth.getCurrentUser();
 
+
+
+
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("users");
         ref.addValueEventListener(new ValueEventListener() {
@@ -53,6 +56,8 @@ public class ListOfMatchesActivity extends AppCompatActivity implements AdapterV
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     if(!(user.getUid().equals(snapshot.getKey()))) {
                         String fullName = snapshot.getValue().toString();
+                        String each_uid = snapshot.getKey();
+                        name_to_id.put(fullName, each_uid);
                         Log.e("Full name", fullName);
                         arrayList.add(fullName);
                     }
@@ -68,11 +73,14 @@ public class ListOfMatchesActivity extends AppCompatActivity implements AdapterV
     }
 
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
-        Log.i("List View", "You clicked item: " + id + " at position: " + position);
+        String text = (list.getItemAtPosition(position).toString());
+        String partner_UID = name_to_id.get(text);
+        Log.i("List View", "You clicked item: " + id + " at position: " + position + " Text: " + text + " UID " + partner_UID);
         Intent intent = new Intent();
         intent.setClass(this, chatActivity.class);
         intent.putExtra("position", position);
         intent.putExtra("id", id);
+        intent.putExtra("Partner_UID", partner_UID);
         startActivity(intent);
     }
 
