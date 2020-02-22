@@ -45,6 +45,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:19.1.1'
     implementation 'com.google.firebase:firebase-messaging:20.1.0'
 
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

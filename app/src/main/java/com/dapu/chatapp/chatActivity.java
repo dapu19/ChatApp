@@ -1,13 +1,24 @@
 package com.dapu.chatapp;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
 
 import com.firebase.client.Firebase;
 
@@ -25,6 +36,17 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessagingService;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.util.Date;
 
 
@@ -35,6 +57,9 @@ public class chatActivity extends AppCompatActivity {
     private long messageTime;
 
     private FirebaseAuth mAuth;
+    AssetManager assetManager;
+
+
 
 
 
@@ -44,51 +69,73 @@ public class chatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat_page);
 
         mAuth = FirebaseAuth.getInstance();
+        String Partner_UID = getIntent().getStringExtra("Partner_UID");
+        final FirebaseUser user = mAuth.getCurrentUser();
+        String my_UID = user.getUid();
 
-        Log.e("Token", FirebaseInstanceId.getInstance().getInstanceId().toString());
+        Log.e("Partner_UID", Partner_UID);
 
-
-    }
-
-    /**
-
-    public ChatMessage(String messageText, String messageUser) {
-        this.messageText = messageText;
-        this.messageUser = messageUser;
-
-        // Initialize to current time
-        messageTime = new Date().getTime();
-    }
-
-    public ChatMessage(){
+        String roomid = get_roomid(Partner_UID, my_UID);
 
     }
 
-    public String getMessageText() {
-        return messageText;
+    private String get_roomid(String partner_UID, String my_UID) {
+        String roomid = partner_UID + "-" + my_UID;
+
+        try {
+            BufferedReader br=new BufferedReader(new
+                    InputStreamReader(getAssets().open("Chatroom_DB.json")));
+
+            JSONParser parser = new JSONParser();
+            Object obj  = parser.parse(br);
+            JSONArray array = new JSONArray();
+            array.add(obj);
+
+            for (Object o : array) {
+                JSONObject Room = (JSONObject) o;
+                Log.e("Room", Room.keySet().toArray()[0].toString());
+
+                if ( Room.keySet().toArray()[0].toString().equals(roomid)) {
+                    Log.e("result", "RoomId " + roomid + " Found");
+                    return roomid;
+                }
+
+            }
+            roomid = my_UID + "-" + partner_UID;
+            for (Object o : array) {
+                JSONObject Room = (JSONObject) o;
+                Log.e("Room", Room.keySet().toArray()[0].toString());
+
+                if ( Room.keySet().toArray()[0].toString().equals(roomid)) {
+                    Log.e("result", "RoomId " + roomid + " Found");
+                    return roomid;
+                }
+
+            }
+            Log.e("result", "RoomId " + roomid + " Not Found");
+            String to_put = roomid ;
+            JSONObject new_id = new JSONObject();
+            JSONObject new_in = new JSONObject();
+            new_id.put(roomid, new_in);
+            array.add(new_id);
+
+            try {
+                OutputStream os = new FileOutputStream("Chatroom_DB.json");
+                OutputStreamWriter osw = new OutputStreamWriter(os);
+                osw.append(array.toJSONString());        // writing back to the file
+                osw.flush();
+                osw.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } catch (Exception ex) {
+            Log.e("Error", ex.toString());
+        }
+
+        return roomid;
+
+
+
     }
-
-    public void setMessageText(String messageText) {
-        this.messageText = messageText;
-    }
-
-    public String getMessageUser() {
-        return messageUser;
-    }
-
-    public void setMessageUser(String messageUser) {
-        this.messageUser = messageUser;
-    }
-
-    public long getMessageTime() {
-        return messageTime;
-    }
-
-    public void setMessageTime(long messageTime) {
-        this.messageTime = messageTime;
-    }
-
-
-*/
-
 }
