@@ -22,14 +22,7 @@ import csv
 
 current_stdout = None
 
-# That will not be as easy as training script, as code relies on input and output file in deep levels of code
-# It also outputs massive amount of info
-# We have to make own script for inference, so we could:cd ..
-# - use it in interactive mode
-# - import for use in other code
-# - use input and output of our choice (so, for example, file as input and console as output,
-#   or even console as input and file as output (but why? ;) ), etc)
-# Why that nmt module doesn't give us some easy to use interface?
+# modified code from https://github.com/daniel-kukiela/nmt-chatbot
 
 # Start inference "engine"
 def do_start_inference(out_dir, hparams):
