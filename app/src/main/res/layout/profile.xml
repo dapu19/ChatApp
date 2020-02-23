@@ -41,7 +41,7 @@
         android:layout_height="56dp"
         android:layout_marginStart="73dp"
         android:layout_marginEnd="73dp"
-        android:layout_marginBottom="88dp"
+        android:layout_marginBottom="56dp"
         android:background="@drawable/button"
         android:onClick="uploadFile"
         android:text="Upload"
@@ -67,15 +67,18 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
+
     <ImageView
         android:id="@+id/Profile"
-        android:layout_width="199dp"
-        android:layout_height="232dp"
+        android:layout_width="264dp"
+        android:layout_height="350dp"
         android:foregroundGravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.455"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.632" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
