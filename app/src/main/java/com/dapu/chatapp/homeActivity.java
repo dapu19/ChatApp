@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,6 +19,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -38,15 +46,39 @@ public class homeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
+        final FirebaseUser user = mAuth.getCurrentUser();
         mStorageRef = FirebaseStorage.getInstance().getReference();
         fullName = findViewById(R.id.fullName);
         email = findViewById(R.id.email);
         pic = findViewById(R.id.imageView);
+
+
+        //How to get id for potentially messaging
+        //Log.e("Token", FirebaseInstanceId.getInstance().getInstanceId().toString());
+
         if(user != null){
             String email1 = user.getEmail();
-            String uid1 = user.getUid();
-            fullName.setText(uid1);
+            //String uid1 = user.getUid();
+            final FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference ref = database.getReference("users/"+user.getUid());
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    DataSnapshot snapshot = dataSnapshot.child("Name");
+                    //for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        //if ((user.getUid()).equals(snapshot.getKey())){
+                    String name = snapshot.getValue().toString();
+                    fullName.setText(name);
+                        //}
+                    //}
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+            //fullName.setText(name);
             email.setText(email1);
             try{
                 url = user.getUid();
