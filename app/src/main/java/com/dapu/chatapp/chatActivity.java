@@ -1,12 +1,5 @@
 package com.dapu.chatapp;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 
 
 import androidx.annotation.NonNull;
@@ -17,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 
@@ -36,10 +30,6 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessagingService;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -52,14 +42,15 @@ import java.util.Date;
 import java.util.List;
 
 
-public class chatActivity extends AppCompatActivity {
+public class chatActivity extends AppCompatActivity{
 
     private String messageText;
     private String messageUser;
     private long messageTime;
+    private EditText editText;
 
     private FirebaseAuth mAuth;
-    AssetManager assetManager;
+
     List<String> db = new ArrayList<String>();
 
 
@@ -142,11 +133,31 @@ public class chatActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("rooms/" + roomid);
         Long time = System.currentTimeMillis() / 1000L;
-        myRef.child(time.toString()).setValue("");
+        myRef.child(time.toString()).setValue(new Message("", true));
         Log.e("created Room", roomid);
 
         return roomid;
     }
+
+
+    public void sendMessage(View view){
+        editText = findViewById(R.id.editText);
+        String message = editText.getText().toString();
+        Log.e("message", message);
+        if (message.length() > 0) {
+            String roomid = find_room();
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference("rooms/" + roomid);
+            Long time = System.currentTimeMillis() / 1000L;
+
+            Message toSend = new Message(message, true);
+            myRef.child(time.toString()).setValue(toSend);
+
+        }
+
+    }
+
+
 
 
 
