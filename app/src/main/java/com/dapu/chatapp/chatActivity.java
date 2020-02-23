@@ -133,7 +133,7 @@ public class chatActivity extends AppCompatActivity{
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("rooms/" + roomid);
         Long time = System.currentTimeMillis() / 1000L;
-        myRef.child(time.toString()).setValue(new Message("", true));
+        myRef.child(time.toString()).setValue(new Message("", my_UID));
         Log.e("created Room", roomid);
 
         return roomid;
@@ -143,6 +143,9 @@ public class chatActivity extends AppCompatActivity{
     public void sendMessage(View view){
         editText = findViewById(R.id.editText);
         String message = editText.getText().toString();
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String UID = user.getUid();
         Log.e("message", message);
         if (message.length() > 0) {
             String roomid = find_room();
@@ -150,7 +153,7 @@ public class chatActivity extends AppCompatActivity{
             DatabaseReference myRef = database.getReference("rooms/" + roomid);
             Long time = System.currentTimeMillis() / 1000L;
 
-            Message toSend = new Message(message, true);
+            Message toSend = new Message(message, UID);
             myRef.child(time.toString()).setValue(toSend);
 
         }
