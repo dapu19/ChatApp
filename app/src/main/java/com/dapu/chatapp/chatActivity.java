@@ -149,62 +149,7 @@ public class chatActivity extends AppCompatActivity {
     }
 
 
-          /*
 
-        try {
-            BufferedReader br=new BufferedReader(new
-                    InputStreamReader(getAssets().open("Chatroom_DB.json")));
-
-            JSONParser parser = new JSONParser();
-            Object obj  = parser.parse(br);
-            JSONArray array = new JSONArray();
-            array.add(obj);
-
-            for (Object o : array) {
-                JSONObject Room = (JSONObject) o;
-                Log.e("Room", Room.keySet().toArray()[0].toString());
-
-                if ( Room.keySet().toArray()[0].toString().equals(roomid)) {
-                    Log.e("result", "RoomId " + roomid + " Found");
-                    return roomid;
-                }
-
-            }
-            roomid = my_UID + "-" + partner_UID;
-            for (Object o : array) {
-                JSONObject Room = (JSONObject) o;
-                Log.e("Room", Room.keySet().toArray()[0].toString());
-
-                if ( Room.keySet().toArray()[0].toString().equals(roomid)) {
-                    Log.e("result", "RoomId " + roomid + " Found");
-                    return roomid;
-                }
-
-            }
-            Log.e("result", "RoomId " + roomid + " Not Found");
-            String to_put = roomid ;
-            JSONObject new_id = new JSONObject();
-            JSONObject new_in = new JSONObject();
-            new_id.put(roomid, new_in);
-            array.add(new_id);
-
-            try {
-                OutputStream os = new FileOutputStream("Chatroom_DB.json");
-                OutputStreamWriter osw = new OutputStreamWriter(os);
-                osw.append(array.toJSONString());        // writing back to the file
-                osw.flush();
-                osw.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        } catch (Exception ex) {
-            Log.e("Error", ex.toString());
-        }
-
-        return roomid;
-
-*/
 
 
 }
