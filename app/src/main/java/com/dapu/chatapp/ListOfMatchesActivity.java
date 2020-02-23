@@ -58,11 +58,10 @@ public class ListOfMatchesActivity extends AppCompatActivity implements AdapterV
                         String fullName = snapshot.getValue().toString();
                         String each_uid = snapshot.getKey();
                         name_to_id.put(fullName, each_uid);
-                        Log.e("Full name", fullName);
                         arrayList.add(fullName);
                     }
                 }
-                Log.e("array", arrayList.toString());
+
                 Show(arrayList);
             }
             @Override

@@ -47,7 +47,9 @@ import java.io.OutputStreamWriter;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class chatActivity extends AppCompatActivity {
@@ -58,6 +60,9 @@ public class chatActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     AssetManager assetManager;
+    List<String> db = new ArrayList<String>();
+
+
 
 
 
@@ -68,19 +73,83 @@ public class chatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_page);
 
-        mAuth = FirebaseAuth.getInstance();
-        String Partner_UID = getIntent().getStringExtra("Partner_UID");
-        final FirebaseUser user = mAuth.getCurrentUser();
-        String my_UID = user.getUid();
+        get_db();
 
-        Log.e("Partner_UID", Partner_UID);
 
-        String roomid = get_roomid(Partner_UID, my_UID);
+
+
 
     }
 
-    private String get_roomid(String partner_UID, String my_UID) {
+
+
+    private void get_db() {
+        mAuth = FirebaseAuth.getInstance();
+        final String partner_UID = getIntent().getStringExtra("Partner_UID");
+        FirebaseUser user = mAuth.getCurrentUser();
+        final String my_UID = user.getUid();
+
+
+        Log.e("Partner_UID", partner_UID);
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("rooms");
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Log.e("snapshot", snapshot.toString());
+                    Log.e("room", snapshot.getKey());
+                    db.add(snapshot.getKey());
+                    Log.e("rooms", db.toString());
+
+                }
+                String room = find_room();
+                Log.e("Def_rooms", room);
+
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("Error", "Database Error");
+            }
+        });
+
+
+    }
+    public String find_room(){
+
+        mAuth = FirebaseAuth.getInstance();
+        final String partner_UID = getIntent().getStringExtra("Partner_UID");
+        FirebaseUser user = mAuth.getCurrentUser();
+        final String my_UID = user.getUid();
+
         String roomid = partner_UID + "-" + my_UID;
+        Log.e("Finding room", roomid + " " + db.toString());
+
+        if (db.contains(roomid)) {
+            Log.e("Found Room", roomid);
+            return roomid;
+        }
+        roomid = my_UID + "-" + partner_UID;
+        if (db.contains(roomid)) {
+            Log.e("Found Room", roomid);
+            return roomid;
+        }
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("rooms/" + roomid);
+        Long time = System.currentTimeMillis() / 1000L;
+        myRef.child(time.toString()).setValue("");
+        Log.e("created Room", roomid);
+
+        return roomid;
+    }
+
+
+          /*
 
         try {
             BufferedReader br=new BufferedReader(new
@@ -135,7 +204,7 @@ public class chatActivity extends AppCompatActivity {
 
         return roomid;
 
+*/
 
 
-    }
 }
