@@ -4,8 +4,11 @@ package com.dapu.chatapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.res.AssetManager;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -148,6 +151,7 @@ public class chatActivity extends AppCompatActivity{
         String UID = user.getUid();
         Log.e("message", message);
         if (message.length() > 0) {
+            editText.setText("");
             String roomid = find_room();
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference("rooms/" + roomid);
@@ -157,6 +161,13 @@ public class chatActivity extends AppCompatActivity{
             myRef.child(time.toString()).setValue(toSend);
 
         }
+
+    }
+    public void getMessage(){
+        Resources res = getResources();
+        Drawable out_buuble = ResourcesCompat.getDrawable(res, R.drawable.shape_bg_outgoing_bubble, null);
+        Drawable in_buuble = ResourcesCompat.getDrawable(res, R.drawable.shape_bg_incoming_bubble, null);
+
 
     }
 
