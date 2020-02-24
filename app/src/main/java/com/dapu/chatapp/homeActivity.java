@@ -60,16 +60,17 @@ public class homeActivity extends AppCompatActivity {
             String email1 = user.getEmail();
             //String uid1 = user.getUid();
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference ref = database.getReference("users");
+            DatabaseReference ref = database.getReference("users/"+user.getUid());
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        if ((user.getUid()).equals(snapshot.getKey())){
-                            String name = snapshot.getValue().toString();
-                            fullName.setText(name);
-                        }
-                    }
+                    DataSnapshot snapshot = dataSnapshot.child("Name");
+                    //for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        //if ((user.getUid()).equals(snapshot.getKey())){
+                    String name = snapshot.getValue().toString();
+                    fullName.setText(name);
+                        //}
+                    //}
                 }
 
                 @Override

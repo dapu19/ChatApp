@@ -55,7 +55,7 @@ public class ListOfMatchesActivity extends AppCompatActivity implements AdapterV
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     if(!(user.getUid().equals(snapshot.getKey()))) {
-                        String fullName = snapshot.getValue().toString();
+                        String fullName = snapshot.child("Name").getValue().toString();
                         String each_uid = snapshot.getKey();
                         name_to_id.put(fullName, each_uid);
                         arrayList.add(fullName);

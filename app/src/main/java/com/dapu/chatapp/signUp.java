@@ -46,7 +46,6 @@ public class signUp extends AppCompatActivity {
 
         mail = findViewById(R.id.email);
         email = mail.getText().toString();
-
         pass = findViewById(R.id.password);
         password = pass.getText().toString();
 
@@ -90,13 +89,11 @@ public class signUp extends AppCompatActivity {
 
     public void addUser(String uid, String name){
         // Write a message to the database
-        FirebaseUser user = mAuth.getCurrentUser();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("users");
         //myRef.setValue("Hello, World!");
-        DatabaseReference usersRef = myRef.child("users");
         //String id = myRef.push().getKey();
-        myRef.child(uid).setValue(name);
+        myRef.child(uid).child("Name").setValue(name);
     }
 
     public void updateUI(com.google.firebase.auth.FirebaseUser user){
