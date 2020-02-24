@@ -3,11 +3,11 @@ package com.dapu.chatapp;
 public class Message {
     private String text;
 
-    private String belongsToCurrentUser;
+    private String UID;
 
-    public Message(String text, String belongsToCurrentUser) {
+    public Message(String text, String UID) {
         this.text = text;
-        this.belongsToCurrentUser = belongsToCurrentUser;
+        this.UID = UID;
     }
 
     public String getText() {
@@ -16,6 +16,7 @@ public class Message {
 
 
     public boolean isCurrentUserMessage(String UId) {
-        return UId.equals(belongsToCurrentUser);
+        return UId.equals(UID);
     }
+    public String getUID(){ return UID;}
 }

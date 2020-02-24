@@ -158,6 +158,7 @@ public class chatActivity extends AppCompatActivity{
             Long time = System.currentTimeMillis() / 1000L;
 
             Message toSend = new Message(message, UID);
+            Log.e("UID",toSend.getUID());
             myRef.child(time.toString()).setValue(toSend);
 
         }
