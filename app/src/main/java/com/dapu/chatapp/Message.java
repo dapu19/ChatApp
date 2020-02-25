@@ -1,17 +1,25 @@
 package com.dapu.chatapp;
 
+import android.util.Log;
+
 public class Message {
     private String text;
 
     private String UID;
+    private Long time;
 
-    public Message(String text, String UID) {
+    public Message(String text, String UID,Long time) {
         this.text = text;
         this.UID = UID;
+        this.time = time;
     }
 
     public String getText() {
         return text;
+    }
+
+    public Long getTime() {
+        return time;
     }
 
 

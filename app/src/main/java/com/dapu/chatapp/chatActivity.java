@@ -5,15 +5,23 @@ package com.dapu.chatapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -51,6 +59,9 @@ public class chatActivity extends AppCompatActivity{
     private String messageUser;
     private long messageTime;
     private EditText editText;
+
+    private RecyclerView mMessageRecycler;
+    private MessageListAdapter mMessageAdapter;
 
     private FirebaseAuth mAuth;
 
@@ -136,7 +147,7 @@ public class chatActivity extends AppCompatActivity{
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("rooms/" + roomid);
         Long time = System.currentTimeMillis() / 1000L;
-        myRef.child(time.toString()).setValue(new Message("", my_UID));
+        myRef.child(time.toString()).setValue(new Message("", my_UID,time));
         Log.e("created Room", roomid);
 
         return roomid;
@@ -157,17 +168,19 @@ public class chatActivity extends AppCompatActivity{
             DatabaseReference myRef = database.getReference("rooms/" + roomid);
             Long time = System.currentTimeMillis() / 1000L;
 
-            Message toSend = new Message(message, UID);
+            Message toSend = new Message(message, UID, time);
             Log.e("UID",toSend.getUID());
             myRef.child(time.toString()).setValue(toSend);
 
         }
 
     }
-    public void getMessage(){
-        Resources res = getResources();
-        Drawable out_buuble = ResourcesCompat.getDrawable(res, R.drawable.shape_bg_outgoing_bubble, null);
-        Drawable in_buuble = ResourcesCompat.getDrawable(res, R.drawable.shape_bg_incoming_bubble, null);
+    public void addMessage(List<Message> messageList){
+
+        mMessageRecycler = (RecyclerView) findViewById(R.id.reyclerview_message_list);
+        mMessageAdapter = new MessageListAdapter(this, messageList);
+        mMessageRecycler.setLayoutManager(new LinearLayoutManager(this));
+
 
 
     }
