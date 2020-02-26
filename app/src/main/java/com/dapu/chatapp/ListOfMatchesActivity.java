@@ -89,6 +89,8 @@ public class ListOfMatchesActivity extends AppCompatActivity implements AdapterV
                         }
                         if (count >= 2) {
                             String fullName = snapshot.child("Name").getValue().toString();
+                            String each_uid = snapshot.getKey();
+                            name_to_id.put(fullName, each_uid);
                             arrayList.add(fullName);
                             //Log.e("List:", arrayList.toString());
                         }

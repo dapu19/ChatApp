@@ -58,7 +58,6 @@ public class chatActivity extends AppCompatActivity{
         setContentView(R.layout.activity_chat_page);
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-
         layout = findViewById(R.id.layout1);
         layout_2 = findViewById(R.id.layout2);
 
@@ -77,19 +76,17 @@ public class chatActivity extends AppCompatActivity{
                 finish();
             }
         });
-
-
         final String partner_UID = getIntent().getStringExtra("Partner_UID");
         get_db();
-
-
-
+        Log.e("partner", partner_UID);
         DatabaseReference nameReference = database.getReference("users/" + partner_UID);
         nameReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 DataSnapshot snapshot = dataSnapshot.child("Name");
+                Log.e("Snap", snapshot.toString());
                 String partnerName = snapshot.getValue().toString();
+                Log.e("Name: ", partnerName);
                 name.setText(partnerName);
             }
 
@@ -169,10 +166,6 @@ public class chatActivity extends AppCompatActivity{
 
     public void get_db() {
         mAuth = FirebaseAuth.getInstance();
-        final String partner_UID = getIntent().getStringExtra("Partner_UID");
-        FirebaseUser user = mAuth.getCurrentUser();
-
-        Log.e("Partner_UID", partner_UID);
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
