@@ -4,12 +4,11 @@ package com.dapu.chatapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
-import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -17,7 +16,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -59,9 +57,7 @@ public class chatActivity extends AppCompatActivity{
     private String messageUser;
     private long messageTime;
     private EditText editText;
-
-    private RecyclerView mMessageRecycler;
-    private MessageListAdapter mMessageAdapter;
+    private TextView name;
 
     private FirebaseAuth mAuth;
 
@@ -77,12 +73,39 @@ public class chatActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_page);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        name = findViewById(R.id.theirName);
 
+        toolbar.setNavigationIcon(R.drawable.ic_arrow);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(getBaseContext(), ListOfMatchesActivity.class);
+                startActivity(myIntent);
+                finish();
+            }
+        });
+
+        final String partner_UID = getIntent().getStringExtra("Partner_UID");
         get_db();
 
 
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference nameReference = database.getReference("users/"+partner_UID);
+        nameReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                DataSnapshot snapshot = dataSnapshot.child("Name");
+                String partnerName = snapshot.getValue().toString();
+                name.setText(partnerName);
+            }
 
-
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("Error", "Database Error");
+            }
+        });
 
     }
 
@@ -90,14 +113,8 @@ public class chatActivity extends AppCompatActivity{
 
     private void get_db() {
         mAuth = FirebaseAuth.getInstance();
-        final String partner_UID = getIntent().getStringExtra("Partner_UID");
-        FirebaseUser user = mAuth.getCurrentUser();
-        final String my_UID = user.getUid();
-
-
-        Log.e("Partner_UID", partner_UID);
-
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
+
         DatabaseReference ref = database.getReference("rooms");
 
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -108,22 +125,18 @@ public class chatActivity extends AppCompatActivity{
                     Log.e("room", snapshot.getKey());
                     db.add(snapshot.getKey());
                     Log.e("rooms", db.toString());
-
                 }
                 String room = find_room();
                 Log.e("Def_rooms", room);
-
             }
-
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.e("Error", "Database Error");
             }
         });
-
-
     }
+
     public String find_room(){
 
         mAuth = FirebaseAuth.getInstance();
@@ -153,7 +166,6 @@ public class chatActivity extends AppCompatActivity{
         return roomid;
     }
 
-
     public void sendMessage(View view){
         editText = findViewById(R.id.editText);
         String message = editText.getText().toString();
@@ -171,14 +183,12 @@ public class chatActivity extends AppCompatActivity{
             Message toSend = new Message(message, UID, time);
             Log.e("UID",toSend.getUID());
             myRef.child(time.toString()).setValue(toSend);
-
         }
-
     }
     public void addMessage(List<Message> messageList){
 
-        mMessageRecycler = (RecyclerView) findViewById(R.id.reyclerview_message_list);
-        mMessageAdapter = new MessageListAdapter(this, messageList);
+        RecyclerView mMessageRecycler = (RecyclerView) findViewById(R.id.reyclerview_message_list);
+        MessageListAdapter mMessageAdapter = new MessageListAdapter(this, messageList);
         mMessageRecycler.setLayoutManager(new LinearLayoutManager(this));
 
 
