@@ -8,6 +8,9 @@ public class Message {
     private String UID;
     private Long time;
 
+    public Message() {
+    }
+
     public Message(String text, String UID,Long time) {
         this.text = text;
         this.UID = UID;
@@ -26,5 +29,8 @@ public class Message {
     public boolean isCurrentUserMessage(String UId) {
         return UId.equals(UID);
     }
+
+    public void setUID(String UID){ this.UID = UID;}
+
     public String getUID(){ return UID;}
 }
