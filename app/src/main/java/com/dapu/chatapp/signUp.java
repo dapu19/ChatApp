@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.animation.ObjectAnimator;
@@ -104,5 +105,11 @@ public class signUp extends AppCompatActivity {
             Intent myIntent = new Intent(getBaseContext(), homeActivity.class);
             startActivity(myIntent);
         }
+    }
+
+    public void limiter(View view) {
+    }
+
+    public void getInfo(View view) {
     }
 }
