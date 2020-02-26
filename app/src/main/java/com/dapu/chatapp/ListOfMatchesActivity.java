@@ -58,10 +58,56 @@ public class ListOfMatchesActivity extends AppCompatActivity implements AdapterV
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mAuth.getCurrentUser();
 
-
-
-
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+        //Start of attempt to just list matches
+        final ArrayList myList = new ArrayList();
+
+        DatabaseReference myRef = database.getReference("users");
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //Log.e("UID", user.getUid());
+                //Log.e("Children count", dataSnapshot.child(""+user.getUid()).child("Interests").getChildren().toString());
+                for (int i = 0; i < dataSnapshot.child(""+user.getUid()).child("Interests").getChildrenCount(); i ++) {
+                    //Log.e("Value:", dataSnapshot.child(""+user.getUid()).child("Interests").child(""+i).getValue().toString());
+                    myList.add(dataSnapshot.child(""+user.getUid()).child("Interests").child(""+i).getValue().toString());
+                    //Log.e("myList", myList.toString());
+
+                }
+                Log.e("myList", myList.toString());
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    if (!(user.getUid().equals(snapshot.getKey()))) {
+                        //Log.e("User:", snapshot.child("Name").getValue().toString());
+                        int count = 0;
+                        for (int i = 0; i < snapshot.child("Interests").getChildrenCount(); i ++) {
+                            //Log.e("Interest:", snapshot.child("Interests").child(""+i).getValue().toString());
+                            if (myList.contains(snapshot.child("Interests").child(""+i).getValue().toString())) {
+                                count ++;
+                                //Log.e("Match:", "YES");
+                            }
+                        }
+                        if (count >= 2) {
+                            String fullName = snapshot.child("Name").getValue().toString();
+                            arrayList.add(fullName);
+                            //Log.e("List:", arrayList.toString());
+                        }
+                    }
+                }
+                Show(arrayList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("Error", "Database Error");
+            }
+        });
+
+        //We now have list of current users interests
+        //Edited below code to only display people who have similar interests
+        //Log.e("Success to here", "");
+
+        /*
         DatabaseReference ref = database.getReference("users");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -79,9 +125,39 @@ public class ListOfMatchesActivity extends AppCompatActivity implements AdapterV
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                arrayList.add("FAIL");
+                Log.e("Error", "Database Error");            }
+        });
+         */
+        /*
+        DatabaseReference ref = database.getReference("users");
+        Log.e("Success to here", "");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.e("Success to here", "");
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    if (!(user.getUid().equals(snapshot.getKey()))) {
+                        int count = 0;
+                        for (int i = 0; i < snapshot.child("Interests").getChildrenCount(); i ++) {
+                            if (myList.contains(snapshot.child("Interests").child(""+i).getValue())) {
+                                count ++;
+                            }
+                        }
+                        if (count >= 2) {
+                            String fullName = snapshot.child("Name").getValue().toString();
+                            arrayList.add(fullName);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
+
+         */
     }
 
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
