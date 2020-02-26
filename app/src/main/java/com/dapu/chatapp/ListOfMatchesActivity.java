@@ -2,6 +2,7 @@ package com.dapu.chatapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,6 +40,18 @@ public class ListOfMatchesActivity extends AppCompatActivity implements AdapterV
         setContentView(R.layout.activity_list_of_matches);
         list = (ListView)findViewById(R.id.listView);
         list.setOnItemClickListener(this);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+
+        toolbar.setNavigationIcon(R.drawable.ic_arrow);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(getBaseContext(), homeActivity.class);
+                startActivity(myIntent);
+                finish();
+            }
+        });
 
         final ArrayList arrayList = new ArrayList();
 
