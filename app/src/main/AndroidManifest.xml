@@ -22,11 +22,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"></activity>
-        <activity android:name=".ListOfMatchesActivity"
-            android:launchMode="singleTop"></activity>
+        <activity android:name=".ListOfMatchesActivity"></activity>
         <activity android:name=".signUp"></activity>
-        <activity android:name=".homeActivity"
-            android:launchMode="singleTop"></activity>
+        <activity android:name=".homeActivity"></activity>
         <activity android:name=".messageActivity"></activity>
         <activity android:name=".EnterDetails"></activity>
         <activity android:name=".LoginPage"></activity>

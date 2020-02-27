@@ -33,7 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import java.util.List;
-
+import java.util.Map;
 
 
 public class chatActivity extends AppCompatActivity{
@@ -43,6 +43,7 @@ public class chatActivity extends AppCompatActivity{
     private TextView name;
     ScrollView scrollView;
     String partner_UID;
+    String roomid;
 
     private FirebaseAuth mAuth;
 
@@ -64,6 +65,42 @@ public class chatActivity extends AppCompatActivity{
             //Log.e("uid", getIntent().getStringExtra("Partner_UID"));
         }
 
+        mAuth = FirebaseAuth.getInstance();
+
+        FirebaseUser user = mAuth.getCurrentUser();
+        final String my_UID = user.getUid();
+        if(0 < my_UID.compareTo(partner_UID)) {
+            roomid = my_UID + "-" + partner_UID;
+        }else{
+            roomid = partner_UID + "-" + my_UID;
+        }
+        Log.e("roomid", roomid);
+        DatabaseReference roomRef = database.getReference("users/" + roomid);
+
+        roomRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.e("snapshot", dataSnapshot.toString());
+                if (!(dataSnapshot.child(roomid).exists())) {
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference("rooms/" + (roomid));
+                    Long time = System.currentTimeMillis() / 1000L;
+                    myRef.child(time.toString()).setValue(new Message("", my_UID, time));
+                    Log.e("created Room", roomid);
+                }
+            }
+
+            @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("Error", "Database Error");
+            }
+
+        }
+
+        );
+
+
 
         layout = findViewById(R.id.layout1);
         layout_2 = findViewById(R.id.layout2);
@@ -84,7 +121,7 @@ public class chatActivity extends AppCompatActivity{
             }
         });
 
-        get_db();
+
 
 
 
@@ -104,7 +141,7 @@ public class chatActivity extends AppCompatActivity{
         });
 
 
-        String roomid = find_room();
+        find_room();
 
         DatabaseReference ref = database.getReference("rooms/" + roomid);
 
@@ -156,7 +193,7 @@ public class chatActivity extends AppCompatActivity{
             LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             lp2.weight = 7.0f;
 
-            if(type == 1) {
+            if(type == 2) {
                 lp2.gravity = Gravity.LEFT;
                 textView.setBackgroundResource(R.drawable.their_message);
             }
@@ -172,9 +209,7 @@ public class chatActivity extends AppCompatActivity{
 
 
     public void get_db() {
-        mAuth = FirebaseAuth.getInstance();
 
-        FirebaseUser user = mAuth.getCurrentUser();
 
 
 
@@ -182,9 +217,9 @@ public class chatActivity extends AppCompatActivity{
 
         DatabaseReference ref = database.getReference("rooms");
 
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Log.e("snapshot", snapshot.toString());
                     Log.e("room", snapshot.getKey());
@@ -193,6 +228,21 @@ public class chatActivity extends AppCompatActivity{
 
 
                 }
+
+
+            }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
             }
 
@@ -203,33 +253,78 @@ public class chatActivity extends AppCompatActivity{
         });
     }
 
-    public String find_room(){
+    public void find_room(){
 
         mAuth = FirebaseAuth.getInstance();
         final String partner_UID = getIntent().getStringExtra("Partner_UID");
         FirebaseUser user = mAuth.getCurrentUser();
         final String my_UID = user.getUid();
 
-        String roomid = partner_UID + "-" + my_UID;
-        Log.e("Finding room", roomid + " " + db.toString());
 
-        if (db.contains(roomid)) {
-            Log.e("Found Room", roomid);
-            return roomid;
-        }
-        roomid = my_UID + "-" + partner_UID;
-        if (db.contains(roomid)) {
-            Log.e("Found Room", roomid);
-            return roomid;
-        }
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("rooms/" + roomid);
-        Long time = System.currentTimeMillis() / 1000L;
-        myRef.child(time.toString()).setValue(new Message("", my_UID,time));
-        Log.e("created Room", roomid);
+        final DatabaseReference ref = database.getReference("rooms");
 
-        return roomid;
+
+        /*
+        boolean found = false;
+
+
+        ref.orderByKey().equalTo(roomid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
+                    String roomFound = childSnapshot.getKey();
+                    Log.e("search room", roomFound);
+
+
+                    if (dataSnapshot.exists()) {
+                        Log.e("room", dataSnapshot.getValue().toString());
+
+
+                    }
+
+
+                    }
+                                                                                                                                                        }
+
+
+
+                    if (roomid.equals(roomKey)) {
+                        Log.e("Found Room", roomid);
+                        roomid = roomKey;
+                        found = true;
+                    } else if (roomKey.equals(my_UID + "-" + partner_UID)) {
+                        Log.e("Found Room", my_UID + "-" + partner_UID);
+                        roomid = my_UID + "-" + partner_UID;
+                        found = true;
+                    }
+
+
+                }
+                if (!found) {
+                    roomid = my_UID + "-" + partner_UID;
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference("rooms/" + (roomid));
+                    Long time = System.currentTimeMillis() / 1000L;
+                    myRef.child(time.toString()).setValue(new Message("", my_UID, time));
+                    Log.e("created Room", roomid);
+                }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("Error", "Database Error");
+            }
+
+
+
+        });
+
+        Log.e("Roomid", roomid);
+        */
+
+
     }
 
     public void sendMessage(View view){
@@ -242,7 +337,6 @@ public class chatActivity extends AppCompatActivity{
         Log.e("message", message);
         if (message.length() > 0) {
             editText.setText("");
-            String roomid = find_room();
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference("rooms/" + roomid);
             Long time = System.currentTimeMillis() / 1000L;
