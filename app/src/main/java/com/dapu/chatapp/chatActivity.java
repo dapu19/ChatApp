@@ -47,7 +47,6 @@ public class chatActivity extends AppCompatActivity{
 
     private FirebaseAuth mAuth;
 
-    List<String> db = new ArrayList<String>();
     List<Message> messages = new ArrayList<>();
 
 
@@ -141,8 +140,6 @@ public class chatActivity extends AppCompatActivity{
         });
 
 
-        find_room();
-
         DatabaseReference ref = database.getReference("rooms/" + roomid);
 
         ref.addChildEventListener(new ChildEventListener() {
@@ -206,126 +203,6 @@ public class chatActivity extends AppCompatActivity{
             scrollView.fullScroll(View.FOCUS_DOWN);
         }
 
-
-
-    public void get_db() {
-
-
-
-
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-        DatabaseReference ref = database.getReference("rooms");
-
-        ref.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Log.e("snapshot", snapshot.toString());
-                    Log.e("room", snapshot.getKey());
-                    db.add(snapshot.getKey());
-                    Log.e("rooms", db.toString());
-
-
-                }
-
-
-            }
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e("Error", "Database Error");
-            }
-        });
-    }
-
-    public void find_room(){
-
-        mAuth = FirebaseAuth.getInstance();
-        final String partner_UID = getIntent().getStringExtra("Partner_UID");
-        FirebaseUser user = mAuth.getCurrentUser();
-        final String my_UID = user.getUid();
-
-
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-        final DatabaseReference ref = database.getReference("rooms");
-
-
-        /*
-        boolean found = false;
-
-
-        ref.orderByKey().equalTo(roomid).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
-                    String roomFound = childSnapshot.getKey();
-                    Log.e("search room", roomFound);
-
-
-                    if (dataSnapshot.exists()) {
-                        Log.e("room", dataSnapshot.getValue().toString());
-
-
-                    }
-
-
-                    }
-                                                                                                                                                        }
-
-
-
-                    if (roomid.equals(roomKey)) {
-                        Log.e("Found Room", roomid);
-                        roomid = roomKey;
-                        found = true;
-                    } else if (roomKey.equals(my_UID + "-" + partner_UID)) {
-                        Log.e("Found Room", my_UID + "-" + partner_UID);
-                        roomid = my_UID + "-" + partner_UID;
-                        found = true;
-                    }
-
-
-                }
-                if (!found) {
-                    roomid = my_UID + "-" + partner_UID;
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = database.getReference("rooms/" + (roomid));
-                    Long time = System.currentTimeMillis() / 1000L;
-                    myRef.child(time.toString()).setValue(new Message("", my_UID, time));
-                    Log.e("created Room", roomid);
-                }
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e("Error", "Database Error");
-            }
-
-
-
-        });
-
-        Log.e("Roomid", roomid);
-        */
-
-
-    }
 
     public void sendMessage(View view){
         editText = findViewById(R.id.editText);
