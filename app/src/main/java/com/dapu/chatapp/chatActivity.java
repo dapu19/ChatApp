@@ -42,6 +42,7 @@ public class chatActivity extends AppCompatActivity{
     private EditText editText;
     private TextView name;
     ScrollView scrollView;
+    String partner_UID;
 
     private FirebaseAuth mAuth;
 
@@ -57,6 +58,11 @@ public class chatActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_page);
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+        if(getIntent().hasExtra("Partner_UID")) {
+            partner_UID = getIntent().getStringExtra("Partner_UID");
+            //Log.e("uid", getIntent().getStringExtra("Partner_UID"));
+        }
 
 
         layout = findViewById(R.id.layout1);
@@ -78,8 +84,6 @@ public class chatActivity extends AppCompatActivity{
             }
         });
 
-
-        final String partner_UID = getIntent().getStringExtra("Partner_UID");
         get_db();
 
 
@@ -169,10 +173,10 @@ public class chatActivity extends AppCompatActivity{
 
     public void get_db() {
         mAuth = FirebaseAuth.getInstance();
-        final String partner_UID = getIntent().getStringExtra("Partner_UID");
+
         FirebaseUser user = mAuth.getCurrentUser();
 
-        Log.e("Partner_UID", partner_UID);
+
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
