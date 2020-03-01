@@ -78,7 +78,7 @@
                 android:layout_marginBottom="250dp"
                 android:layout_weight="1"
                 android:clickable="true"
-                android:onClick="message"
+                android:onClick="karen"
                 app:cardBackgroundColor="#24253F"
                 app:cardCornerRadius="10dp"
                 app:cardMaxElevation="6dp"

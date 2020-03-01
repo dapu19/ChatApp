@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
+
     <application
 
         android:icon="@mipmap/ic_launcher"
@@ -30,6 +31,7 @@
         <activity android:name=".LoginPage"></activity>
         <activity android:name=".userInfo"></activity>
         <activity android:name=".upload"></activity>
+        <activity android:name=".KarenActivity"></activity>
 
         <service android:name="com.google.firebase.messaging.FirebaseMessagingService"
             android:exported="false">

@@ -110,6 +110,11 @@ public class homeActivity extends AppCompatActivity {
         startActivity(myIntent);
     }
 
+    public void karen(android.view.View view) {
+        Intent myIntent = new Intent(getBaseContext(), KarenActivity.class);
+        startActivity(myIntent);
+    }
+
     public void userInfo(android.view.View view) {
         Intent myIntent = new Intent(getBaseContext(), userInfo.class);
         startActivity(myIntent);
