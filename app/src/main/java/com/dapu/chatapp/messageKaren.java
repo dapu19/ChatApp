@@ -13,7 +13,9 @@ class messageKaren extends AsyncTask<String, Void, String> {
 
     private Exception exception;
     public static final String REMOTE_HOST = "54.152.68.22";
-    public static final int REMOTE_PORT = 2344;
+    public static final int REMOTE_PORT = 2346;
+
+
 
     @Override
     protected String doInBackground(String... params) {
@@ -29,9 +31,24 @@ class messageKaren extends AsyncTask<String, Void, String> {
             BufferedReader sockIn = new BufferedReader(
                     new InputStreamReader(socket.getInputStream()));
 
-            sockOut.write(message, 0, message.length());
-            sockOut.newLine();
-            sockOut.flush();
+            for (;;) {
+
+                sockOut.write(message, 0, message.length());
+                sockOut.newLine();
+                sockOut.flush();
+
+                Log.e("response", "Flushed");
+                String response = sockIn.readLine();
+                Log.e("response", response);
+                if (response == null) {
+                    Log.e("Network Error", "Remote process closed the connection.");
+                    break;
+                } else {
+                    Log.e("response", response);
+
+                }
+            }
+
         } catch (Exception e) {
             this.exception = e;
             Log.e("Error", this.exception.toString());
@@ -42,5 +59,7 @@ class messageKaren extends AsyncTask<String, Void, String> {
         Log.e("Hi", "sent message");
         return null;
     }
+
+
 
 }
