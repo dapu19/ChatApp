@@ -5,6 +5,9 @@ from collections import defaultdict
 import time
 import requests
 
+# modified code from https://github.com/daniel-kukiela/nmt-chatbot
+
+
 # Whether entence is a valid url
 full_sentence_valid_url = False
 
