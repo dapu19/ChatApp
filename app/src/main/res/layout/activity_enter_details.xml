@@ -23,9 +23,9 @@
         tools:text="    DETAILS" />
 
     <TextView
-        android:id="@+id/editText2"
-        android:layout_width="312dp"
-        android:layout_height="49dp"
+        android:id="@+id/Text2"
+        android:layout_width="303dp"
+        android:layout_height="18dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginEnd="16dp"
@@ -38,15 +38,17 @@
         android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintHorizontal_bias="0.552"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.468" />
+        app:layout_constraintVertical_bias="0.479" />
 
     <RadioGroup
         android:id="@+id/radioSex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,13 +59,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Male" />
+            android:padding="15dp"
+            android:text="Male"
+            android:textColor="#fff" />
 
         <RadioButton
             android:id="@+id/radioFemale"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Female" />
+            android:padding="15dp"
+            android:text="Female"
+            android:textColor="#fff" />
 
     </RadioGroup>
 
@@ -87,7 +93,7 @@
         android:backgroundTint="#fff"
         android:ems="10"
         android:foregroundTint="#fff"
-        android:hint="City you live in"
+        android:hint="Location"
         android:inputType="text"
         android:textColorHint="#B6B2B2"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -95,7 +101,7 @@
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.604" />
+        app:layout_constraintVertical_bias="0.634" />
 
     <TextView
         android:id="@+id/textView1"
@@ -152,13 +158,14 @@
         android:id="@+id/SeekBar"
         android:layout_width="398dp"
         android:layout_height="15dp"
+        android:layout_marginTop="16dp"
         android:foregroundGravity="center"
         android:gravity="center_horizontal"
         android:max="100"
         android:min="18"
         android:progress="50"
-        app:layout_constraintBottom_toTopOf="@+id/editText2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/display" />
 

@@ -41,7 +41,7 @@
         android:layout_height="56dp"
         android:layout_marginStart="73dp"
         android:layout_marginEnd="73dp"
-        android:layout_marginBottom="56dp"
+        android:layout_marginBottom="88dp"
         android:background="@drawable/button"
         android:onClick="uploadFile"
         android:text="Upload"
@@ -70,15 +70,31 @@
 
     <ImageView
         android:id="@+id/Profile"
-        android:layout_width="264dp"
-        android:layout_height="350dp"
+        android:layout_width="240dp"
+        android:layout_height="308dp"
         android:foregroundGravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.455"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.632" />
+        app:layout_constraintVertical_bias="0.562" />
 
+    <Button
+        android:id="@+id/login"
+        android:layout_width="343dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/button2"
+        android:onClick="skip"
+        android:text="Skip This Step"
+        android:textColor="#fff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

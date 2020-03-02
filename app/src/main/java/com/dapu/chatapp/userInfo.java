@@ -3,6 +3,7 @@ package com.dapu.chatapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ToggleButton;
@@ -68,6 +69,7 @@ public class userInfo extends AppCompatActivity {
             tb = findViewById(id);
             System.out.println(count);
             if(tb.isChecked()) {
+                tb.setTextColor(Color.parseColor("#8D07A3"));
                 if (count < 5) {
                     tb1 = buttons.get(count);
                     for(int j=0; j < 5; j++){
@@ -89,6 +91,8 @@ public class userInfo extends AppCompatActivity {
                 }else{
                     count = 0;
                 }
+            }else{
+                tb.setTextColor(Color.parseColor("#ffffff"));
             }
         }
     }
@@ -106,7 +110,7 @@ public class userInfo extends AppCompatActivity {
             Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
             startActivity(myIntent);
         }else{
-            Intent myIntent = new Intent(getBaseContext(), homeActivity.class);
+            Intent myIntent = new Intent(getBaseContext(), upload.class);
             startActivity(myIntent);
         }
     }

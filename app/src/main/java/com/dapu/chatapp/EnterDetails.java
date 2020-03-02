@@ -25,7 +25,7 @@ public class EnterDetails extends AppCompatActivity {
     private TextView displayAge;
     private FirebaseAuth mAuth;
     private EditText location;
-    int SPLASH_TIME = 2500;
+    int SPLASH_TIME = 5000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,41 +33,41 @@ public class EnterDetails extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                setContentView(R.layout.activity_enter_details);
+                mAuth = FirebaseAuth.getInstance();
+                ageSlider = findViewById(R.id.SeekBar);
+                int ageInt = ageSlider.getProgress();
+                String age = String.valueOf(ageInt);
+                displayAge = findViewById(R.id.display);
+                displayAge.setText(age);
+                ageSlider.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                        int ageInt = ageSlider.getProgress();
+                        String age = String.valueOf(ageInt);
+                        displayAge = findViewById(R.id.display);
+                        displayAge.setText(age);
+                    }
 
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+                        int ageInt = ageSlider.getProgress();
+                        String age = String.valueOf(ageInt);
+                        displayAge = findViewById(R.id.display);
+                        displayAge.setText(age);
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+                        int ageInt = ageSlider.getProgress();
+                        String age = String.valueOf(ageInt);
+                        displayAge = findViewById(R.id.display);
+                        displayAge.setText(age);
+                    }
+                });
             }
         }, SPLASH_TIME);
-        setContentView(R.layout.activity_enter_details);
-        mAuth = FirebaseAuth.getInstance();
-        ageSlider = findViewById(R.id.SeekBar);
-        int ageInt = ageSlider.getProgress();
-        String age = String.valueOf(ageInt);
-        displayAge = findViewById(R.id.display);
-        displayAge.setText(age);
-        ageSlider.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                int ageInt = ageSlider.getProgress();
-                String age = String.valueOf(ageInt);
-                displayAge = findViewById(R.id.display);
-                displayAge.setText(age);
-            }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                int ageInt = ageSlider.getProgress();
-                String age = String.valueOf(ageInt);
-                displayAge = findViewById(R.id.display);
-                displayAge.setText(age);
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                int ageInt = ageSlider.getProgress();
-                String age = String.valueOf(ageInt);
-                displayAge = findViewById(R.id.display);
-                displayAge.setText(age);
-            }
-        });
     }
 
 

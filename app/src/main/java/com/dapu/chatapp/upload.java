@@ -107,6 +107,9 @@ public class upload extends AppCompatActivity {
     public void updateUI(){
         Intent myIntent = new Intent(getBaseContext(), homeActivity.class);
         startActivity(myIntent);
+    }
 
+    public void skip(android.view.View view){
+        updateUI();
     }
 }

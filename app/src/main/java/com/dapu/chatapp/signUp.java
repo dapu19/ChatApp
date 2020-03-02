@@ -102,7 +102,7 @@ public class signUp extends AppCompatActivity {
             Intent myIntent = new Intent(getBaseContext(), homeActivity.class);
             startActivity(myIntent);
         }else{
-            Intent myIntent = new Intent(getBaseContext(), homeActivity.class);
+            Intent myIntent = new Intent(getBaseContext(), EnterDetails.class);
             startActivity(myIntent);
         }
     }
