@@ -11,7 +11,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+        android:background="#24253F"
         android:elevation="4dp"
         android:navigationIcon="@drawable/ic_arrow"
         android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -21,9 +21,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Chats"
+            android:text="Matches"
+
             android:textSize="30dp"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#ffffff"
             android:fontFamily="sans-serif-medium"
 
             />
