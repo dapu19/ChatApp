@@ -3,6 +3,11 @@ package com.dapu.chatapp;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
@@ -14,12 +19,23 @@ class messageKaren extends AsyncTask<String, Void, String> {
     private Exception exception;
     public static final String REMOTE_HOST = "54.152.68.22";
     public static final int REMOTE_PORT = 2346;
+    private FirebaseAuth mAuth;
+    String roomid;
+
 
 
 
     @Override
     protected String doInBackground(String... params) {
         try {
+
+            mAuth = FirebaseAuth.getInstance();
+
+
+            FirebaseUser user = mAuth.getCurrentUser();
+            final String my_UID = user.getUid();
+            roomid = my_UID + "-karen";
+
             Log.e("Trying", "sent message");
             String message = params[0];
             Log.e("Message", message);
@@ -45,6 +61,20 @@ class messageKaren extends AsyncTask<String, Void, String> {
                     break;
                 } else {
                     Log.e("response", response);
+
+
+                    if (response.length() > 0) {
+
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        Log.e("roomid",roomid);
+                        DatabaseReference myRef = database.getReference("rooms/" + roomid);
+                        Long time = System.currentTimeMillis() / 1000L;
+
+                        Message toSend = new Message(response, "karen", time);
+                        Log.e("UID",toSend.getUID());
+                        myRef.child(time.toString()).setValue(toSend);
+                    }
+                    break;
 
                 }
             }

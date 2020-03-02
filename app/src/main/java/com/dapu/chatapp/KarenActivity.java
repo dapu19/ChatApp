@@ -89,7 +89,7 @@ public class KarenActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(getBaseContext(), ListOfMatchesActivity.class);
+                Intent myIntent = new Intent(getBaseContext(), homeActivity.class);
                 startActivity(myIntent);
                 finish();
             }
@@ -169,7 +169,23 @@ public class KarenActivity extends AppCompatActivity {
 
     public void sendMessage(View view) throws IOException {
         editText = findViewById(R.id.editText);
+        mAuth = FirebaseAuth.getInstance();
+
+        FirebaseUser user = mAuth.getCurrentUser();
+        final String my_UID = user.getUid();
         String message = editText.getText().toString();
+        roomid = my_UID + "-karen";
+        if (message.length() > 0) {
+
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            Log.e("roomid",roomid);
+            DatabaseReference myRef = database.getReference("rooms/" + roomid);
+            Long time = System.currentTimeMillis() / 1000L;
+
+            Message toSend = new Message(message, my_UID, time);
+            Log.e("UID",toSend.getUID());
+            myRef.child(time.toString()).setValue(toSend);
+        }
         new messageKaren().execute(message);
         editText.setText("");
     }
