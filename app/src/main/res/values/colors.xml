@@ -6,4 +6,9 @@
     <color name="toolbar">#3DD16D</color>
     <color name="on">#CCE6E2</color>
     <color name="off">#0F3B9C</color>
+    <color name="chatroom_background">#FAF1F3</color>
+    <color name="chatroom_text_white">#FFFFFF</color>
+    <color name="chat_bubble_sender">#F7C7D3</color>
+    <color name="chat_bubble_reciever">#E1849B</color>
+    <color name="chatroom_toolbar">#F7C7D3</color>
 </resources>

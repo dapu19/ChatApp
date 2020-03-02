@@ -3,23 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#54673AB7"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/chatroom_background"
     android:orientation="vertical"
     tools:context=".chatActivity">
+
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#673AB7"
+        android:background="@color/chatroom_toolbar"
         android:elevation="4dp"
         android:navigationIcon="@drawable/ic_arrow"
         android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
 
         <ImageView
             android:id="@+id/contactImage"
@@ -27,35 +25,35 @@
             android:layout_height="50dp"
             android:maxWidth="15dp"
             android:maxHeight="15dp"
-            android:src="@drawable/picture"
-            />
+            android:src="@drawable/picture" />
 
         <TextView
             android:id="@+id/theirName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:gravity="center_horizontal"
             android:textSize="25dp"
-            android:layout_marginLeft="20dp"
+
             />
     </androidx.appcompat.widget.Toolbar>
 
-
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_weight="20"
         android:layout_height="0dp"
-        android:id="@+id/scrollView">
+        android:layout_weight="20">
+
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/layout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <LinearLayout
+                android:id="@+id/layout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/layout1">
-            </LinearLayout>
+                android:orientation="vertical"></LinearLayout>
         </RelativeLayout>
     </ScrollView>
 
@@ -64,99 +62,99 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="bottom"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="4dp"/>
 </LinearLayout>
-<!--
-<?xml version="1.0" encoding="utf-8"?>
+    <!--
+    <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".chatActivity">
-
-
-<LinearLayout
-    android:id="@+id/layout_chatbox"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:clipToPadding="false"
-    android:focusableInTouchMode="true"
-    tools:context=".homeActivity">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#673AB7"
-        android:elevation="4dp"
-        android:navigationIcon="@drawable/ic_arrow"
-        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+        android:layout_height="match_parent"
+        tools:context=".chatActivity">
 
-        <ImageView
-            android:id="@+id/contactImage"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:maxWidth="15dp"
-            android:maxHeight="15dp"
-            android:src="@drawable/picture"
-            />
-
-        <TextView
-            android:id="@+id/theirName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textSize="25dp"
-            android:layout_marginLeft="20dp"
-            />
-    </androidx.appcompat.widget.Toolbar>
-
-    <ListView
-        android:layout_width="match_parent"
-        android:id="@+id/messages_view"
-        android:layout_weight="2"
-        android:divider="#A31B1B"
-        android:layout_height="0dp"
-        />
 
     <LinearLayout
+        android:id="@+id/layout_chatbox"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#79198D"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:clipToPadding="false"
+        android:focusableInTouchMode="true"
+        tools:context=".homeActivity">
 
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="0dp"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#673AB7"
+            android:elevation="4dp"
+            android:navigationIcon="@drawable/ic_arrow"
+            android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+            <ImageView
+                android:id="@+id/contactImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:maxWidth="15dp"
+                android:maxHeight="15dp"
+                android:src="@drawable/picture"
+                />
+
+            <TextView
+                android:id="@+id/theirName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="25dp"
+                android:layout_marginLeft="20dp"
+                />
+        </androidx.appcompat.widget.Toolbar>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:id="@+id/messages_view"
             android:layout_weight="2"
-            android:ems="10"
-            android:hint="Write a message"
-            android:inputType="text"
-            android:paddingHorizontal="10dp"
-            android:text="" />
+            android:divider="#A31B1B"
+            android:layout_height="0dp"
+            />
 
-        <ImageButton
-
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:scaleType="fitCenter"
-            android:padding="20dp"
-            android:layout_marginHorizontal="10dp"
-            android:background="@drawable/ic_send_black_24dp"
-            android:onClick="sendMessage"/>/>
+            android:background="#79198D"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:ems="10"
+                android:hint="Write a message"
+                android:inputType="text"
+                android:paddingHorizontal="10dp"
+                android:text="" />
+
+            <ImageButton
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                android:padding="20dp"
+                android:layout_marginHorizontal="10dp"
+                android:background="@drawable/ic_send_black_24dp"
+                android:onClick="sendMessage"/>/>
+
+
+        </LinearLayout>
 
 
     </LinearLayout>
 
-
-</LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
--->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    -->
