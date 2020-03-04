@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.animation.ObjectAnimator;
-import android.os.Handler;
 import android.widget.ProgressBar;
 import android.util.Log;
 import android.widget.Toast;
@@ -20,8 +18,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {//implements RoomListener{
 
-    //private String channelID = "CHANNEL_ID_FROM_YOUR_SCALEDRONE_DASHBOARD";
-    //private String roomName = "observable-room";
     public static final String TAG = "YOUR-TAG-NAME";
     private EditText mail;
     private EditText pass;
@@ -30,7 +26,7 @@ public class MainActivity extends AppCompatActivity {//implements RoomListener{
     private Button login;
     private Button signUp;
     private FirebaseAuth mAuth;
-    //private Scaledrone scaledrone;
+
 
     ProgressBar splashProgress;
     int SPLASH_TIME = 2500; //This is 2.5 seconds
@@ -42,21 +38,13 @@ public class MainActivity extends AppCompatActivity {//implements RoomListener{
         mAuth = FirebaseAuth.getInstance();
     }
 
-/*
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
-    }
-*/
+    //method which uses FireBase supports to implement a login system.
     public void Login(android.view.View view) {
         // Validate and sign in
         mail = findViewById(R.id.email);
         email = mail.getText().toString();
 
+        // get password and cast it to string
         pass = findViewById(R.id.password);
         password = pass.getText().toString();
 
@@ -82,12 +70,13 @@ public class MainActivity extends AppCompatActivity {//implements RoomListener{
                 });
     }
 
+    // function used to direct  a new user to sign up page
     public void signUp(android.view.View view) {
         Intent myIntent = new Intent(getBaseContext(), signUp.class);
         startActivity(myIntent);
     }
 
-
+    // method which will direct new user to signUp or bring a user to the home page
     public void updateUI(com.google.firebase.auth.FirebaseUser user){
         if(user==null) {
             Intent myIntent = new Intent(getBaseContext(), signUp.class);
@@ -98,28 +87,5 @@ public class MainActivity extends AppCompatActivity {//implements RoomListener{
         }
     }
 
-    /*@Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        //editText = (EditText) findViewById(R.id.editText);
-        login = findViewById(R.id.login);
-        signUp = findViewById(R.id.signUp);
-    } */
-
-    //@Override
-    //public void onOpen(Room room) {
-        //System.out.println("Connected to room");
-    //}
-
-    //@Override
-    //public void onOpenFailure(Room room, Exception ex) {
-        //System.err.println(ex);
-    //}
-
-    //@Override
-    //public void onMessage(Room room, com.scaledrone.lib.Message receivedMessage) {
-        //TODO
-    //}
 
 }

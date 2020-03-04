@@ -9,14 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,8 +20,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -41,6 +35,7 @@ public class homeActivity extends AppCompatActivity {
     private ImageView pic;
     private String url;
 
+    //  function which will get saved state and  take user info using FireBase and create variables for user info
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +73,6 @@ public class homeActivity extends AppCompatActivity {
 
                 }
             });
-            //fullName.setText(name);
             email.setText(email1);
             try{
                 url = user.getUid();
@@ -104,22 +98,25 @@ public class homeActivity extends AppCompatActivity {
             }
         }
     }
-
+    // function which is used to direct user to page which contains list of matches for messaging
     public void message(android.view.View view) {
         Intent myIntent = new Intent(getBaseContext(), ListOfMatchesActivity.class);
         startActivity(myIntent);
     }
 
+    // function which directs the user to the Karen ChatBot
     public void karen(android.view.View view) {
         Intent myIntent = new Intent(getBaseContext(), KarenActivity.class);
         startActivity(myIntent);
     }
 
+    // function directs user to userInfo which allows them to edit their info
     public void userInfo(android.view.View view) {
         Intent myIntent = new Intent(getBaseContext(), userInfo.class);
         startActivity(myIntent);
     }
 
+    // function which makes use of FireBase to log the user out and send them to the Main page.
     public void logout(android.view.View view){
         FirebaseAuth.getInstance().signOut();
         Intent myIntent = new Intent(getBaseContext(), MainActivity.class);

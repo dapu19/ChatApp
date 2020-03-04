@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.Gravity;
 
 import android.view.View;
-import android.view.ViewGroup;
 
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -35,7 +34,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import java.util.List;
-import java.util.Map;
 
 
 public class chatActivity extends AppCompatActivity{
@@ -49,6 +47,7 @@ public class chatActivity extends AppCompatActivity{
 
     private FirebaseAuth mAuth;
 
+    // creating array for holding messages
     List<Message> messages = new ArrayList<>();
 
 
@@ -145,13 +144,14 @@ public class chatActivity extends AppCompatActivity{
         DatabaseReference ref = database.getReference("rooms/" + roomid);
 
         ref.addChildEventListener(new ChildEventListener() {
+            // function handles new messages by passing arguments to addMessageBox function
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String s) {
                 Message message = dataSnapshot.getValue(Message.class);
                 String messageText = message.getText();
                 String userName = message.getUID();
                 if (messageText.length() > 0) {
-
+                    // type of message used to differentiate between sender and receiver
                     if (userName.equals(mAuth.getCurrentUser().getUid())) {
                         addMessageBox(messageText, 1);
                         Log.e("my Message", messageText);
@@ -183,7 +183,7 @@ public class chatActivity extends AppCompatActivity{
             }
         });
     }
-
+        // function used to create new wrappers for messages
         public void addMessageBox(String message, int type){
             TextView textView = new TextView(chatActivity.this);
             textView.setTextSize(20);
@@ -196,6 +196,7 @@ public class chatActivity extends AppCompatActivity{
             //LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             lp2.weight = 7.0f;
 
+            // type affects message appearance depending on if message is being sent or received
             if(type == 2) {
                 lp2.gravity = Gravity.LEFT;
                 textView.setBackgroundResource(R.drawable.their_message);
@@ -209,7 +210,7 @@ public class chatActivity extends AppCompatActivity{
             scrollView.fullScroll(View.FOCUS_DOWN);
         }
 
-
+    // function handles sending a message using FireBase database to store messages.
     public void sendMessage(View view){
         editText = findViewById(R.id.editText);
         messages.clear();
@@ -218,6 +219,7 @@ public class chatActivity extends AppCompatActivity{
         FirebaseUser user = mAuth.getCurrentUser();
         String UID = user.getUid();
         Log.e("message", message);
+        // message is only sent/stored if it has content.
         if (message.length() > 0) {
             editText.setText("");
             FirebaseDatabase database = FirebaseDatabase.getInstance();

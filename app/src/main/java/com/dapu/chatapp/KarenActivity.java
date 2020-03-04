@@ -28,7 +28,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-
+// implements messaging service for communicating with Karen ChatBot
 public class KarenActivity extends AppCompatActivity {
 
     private EditText editText;
@@ -102,6 +102,7 @@ public class KarenActivity extends AppCompatActivity {
         DatabaseReference ref = database.getReference("rooms/" + roomid);
 
         ref.addChildEventListener(new ChildEventListener() {
+            // handles new messages by passing message text to assMessageBox function , type indicates message sent by Karen or user
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String s) {
                 Message message = dataSnapshot.getValue(Message.class);
@@ -145,6 +146,7 @@ public class KarenActivity extends AppCompatActivity {
 
 
     }
+    // function handles displaying message to user by creating wrapper for text, message type indicates if message is sent by user or Karen
     public void addMessageBox(String message, int type){
         TextView textView = new TextView(KarenActivity.this);
         textView.setTextSize(20);
@@ -172,6 +174,7 @@ public class KarenActivity extends AppCompatActivity {
 
 
 
+    // function handles sending a message by storing it in the FireBase database
     public void sendMessage(View view) throws IOException {
         editText = findViewById(R.id.editText);
         mAuth = FirebaseAuth.getInstance();
@@ -180,6 +183,7 @@ public class KarenActivity extends AppCompatActivity {
         final String my_UID = user.getUid();
         String message = editText.getText().toString();
         roomid = my_UID + "-karen";
+        // message is only sent/stored if it has content, (Has nonzero number of characters.)
         if (message.length() > 0) {
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();

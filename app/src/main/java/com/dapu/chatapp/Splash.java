@@ -1,20 +1,10 @@
 package com.dapu.chatapp;
 
-import androidx.annotation.NonNull;
+// implements a splash page when app is started
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
-import android.animation.ObjectAnimator;
 import android.os.Handler;
-import android.widget.ProgressBar;
-import android.util.Log;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -52,6 +42,7 @@ public class Splash extends AppCompatActivity{
 
     }
 
+    // if user is not logged in sends them to main page where they can sign in/up otherwise sends the logged in user to their home page
     public void updateUI(com.google.firebase.auth.FirebaseUser user){
         if(user==null) {
             Intent myIntent = new Intent(getBaseContext(), MainActivity.class);

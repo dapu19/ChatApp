@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -41,6 +39,7 @@ public class EnterDetails extends AppCompatActivity {
                 displayAge = findViewById(R.id.display);
                 displayAge.setText(age);
                 ageSlider.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+                    // function for handling user changing age on progress bar
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                         int ageInt = ageSlider.getProgress();
@@ -49,6 +48,7 @@ public class EnterDetails extends AppCompatActivity {
                         displayAge.setText(age);
                     }
 
+                    // begin tracking user touch on progress bar
                     @Override
                     public void onStartTrackingTouch(SeekBar seekBar) {
                         int ageInt = ageSlider.getProgress();
@@ -57,6 +57,7 @@ public class EnterDetails extends AppCompatActivity {
                         displayAge.setText(age);
                     }
 
+                    // stop tracking user touch on progress barr
                     @Override
                     public void onStopTrackingTouch(SeekBar seekBar) {
                         int ageInt = ageSlider.getProgress();
@@ -70,7 +71,7 @@ public class EnterDetails extends AppCompatActivity {
 
     }
 
-
+    // function for handling pressing submit button will call addUser with details that have been entered
     public void submit(android.view.View view){
 
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioSex);
@@ -92,7 +93,7 @@ public class EnterDetails extends AppCompatActivity {
      }
 
     public void addUser(String uid, String location, String age, String gender){
-        // Write a message to the database
+        // Write a message to the database containing users entered details
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("users");
         myRef.child(uid).child("Gender").setValue(gender);
@@ -100,7 +101,7 @@ public class EnterDetails extends AppCompatActivity {
         myRef.child(uid).child("Location").setValue(location);
     }
 
-
+    // updates UI based on if user is signed in or not.
     public void updateUI(com.google.firebase.auth.FirebaseUser user){
         if(user==null) {
             Intent myIntent = new Intent(getBaseContext(), MainActivity.class);

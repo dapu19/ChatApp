@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
+
 import android.widget.ToggleButton;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -14,7 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class userInfo extends AppCompatActivity {
     int SPLASH_TIME = 2500; //This is 2.5 seconds
@@ -28,7 +28,7 @@ public class userInfo extends AppCompatActivity {
     private ToggleButton choice3;
     private ToggleButton choice4;
     private ToggleButton choice5;
-    int count = 0;
+    int count = 0; // used to limit number of choices
     boolean b;
 
 
@@ -60,6 +60,7 @@ public class userInfo extends AppCompatActivity {
         updateUI(user);
     }
 
+    // this implants the limit on number of interest , limit is 5
     public void limiter(android.view.View view){
         //count = 0;
         for(int i = 0; i < 9; i++ ){
@@ -98,13 +99,14 @@ public class userInfo extends AppCompatActivity {
     }
 
     public void addUser(String uid, ArrayList interests){
-        // Write a message to the database
+        // Write a message to the database containing entered user details
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("users");
         myRef.child(uid).child("Interests").setValue(interests);
 
     }
 
+    // if user is not logged in will be sent ot main page where they can sign in/up otherwise sends logged in user to the upload page
     public void updateUI(com.google.firebase.auth.FirebaseUser user){
         if(user==null) {
             Intent myIntent = new Intent(getBaseContext(), MainActivity.class);

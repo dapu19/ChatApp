@@ -12,9 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import java.util.HashMap;
-import java.util.Map;
-
-import com.firebase.client.Firebase;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,10 +20,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.core.Tag;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ListOfMatchesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
@@ -60,11 +55,13 @@ public class ListOfMatchesActivity extends AppCompatActivity implements AdapterV
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        //Start of attempt to just list matches
+        //Start of attempt to list matches
         final ArrayList myList = new ArrayList();
 
+        // access FireBase database to get list of matches
         DatabaseReference myRef = database.getReference("users");
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            // will compile a list of user whose interests match
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //Log.e("UID", user.getUid());
@@ -87,6 +84,7 @@ public class ListOfMatchesActivity extends AppCompatActivity implements AdapterV
                                 //Log.e("Match:", "YES");
                             }
                         }
+                        // users are matched if they share 2 or more interests
                         if (count >= 2) {
                             String fullName = snapshot.child("Name").getValue().toString();
                             String each_uid = snapshot.getKey();
@@ -106,61 +104,7 @@ public class ListOfMatchesActivity extends AppCompatActivity implements AdapterV
             }
         });
 
-        //We now have list of current users interests
-        //Edited below code to only display people who have similar interests
-        //Log.e("Success to here", "");
 
-        /*
-        DatabaseReference ref = database.getReference("users");
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    if(!(user.getUid().equals(snapshot.getKey()))) {
-                        String fullName = snapshot.child("Name").getValue().toString();
-                        String each_uid = snapshot.getKey();
-                        name_to_id.put(fullName, each_uid);
-                        arrayList.add(fullName);
-                    }
-                }
-
-                Show(arrayList);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e("Error", "Database Error");            }
-        });
-         */
-        /*
-        DatabaseReference ref = database.getReference("users");
-        Log.e("Success to here", "");
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.e("Success to here", "");
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    if (!(user.getUid().equals(snapshot.getKey()))) {
-                        int count = 0;
-                        for (int i = 0; i < snapshot.child("Interests").getChildrenCount(); i ++) {
-                            if (myList.contains(snapshot.child("Interests").child(""+i).getValue())) {
-                                count ++;
-                            }
-                        }
-                        if (count >= 2) {
-                            String fullName = snapshot.child("Name").getValue().toString();
-                            arrayList.add(fullName);
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-         */
     }
 
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {

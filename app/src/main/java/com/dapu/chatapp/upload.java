@@ -7,38 +7,23 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.ListResult;
-import com.google.firebase.storage.OnPausedListener;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageException;
-import com.google.firebase.storage.StorageMetadata;
-import com.google.firebase.storage.StorageReference;
+
 import com.google.firebase.storage.UploadTask;
 
 import android.net.Uri;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-
+// Allows the user to upload an image of themselves to the app
 public class upload extends AppCompatActivity {
     ImageView img;
     private StorageReference mStorageRef;
@@ -57,6 +42,7 @@ public class upload extends AppCompatActivity {
         img = (ImageView) findViewById(R.id.Profile);
     }
 
+    //
     public void chooseFile(android.view.View view){
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -104,6 +90,7 @@ public class upload extends AppCompatActivity {
         return mimeTypeMap.getExtensionFromMimeType(cr.getType(uri));
     }
 
+    // sends user to main page when upload is complete
     public void updateUI(){
         Intent myIntent = new Intent(getBaseContext(), homeActivity.class);
         startActivity(myIntent);
