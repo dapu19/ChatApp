@@ -1,6 +1,7 @@
 package com.dapu.chatapp;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -146,10 +147,14 @@ public class KarenActivity extends AppCompatActivity {
     }
     public void addMessageBox(String message, int type){
         TextView textView = new TextView(KarenActivity.this);
-        textView.setTextSize(32);
+        textView.setTextSize(20);
         textView.setText(message);
-
-        LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        textView.setPadding(25,25,25,25);
+        LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        lp2.setMargins(20,10,20,10);
+        //textView.setLayoutParams(lp);
+        textView.setTextColor(Color.parseColor("#ffffff"));
+        //LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lp2.weight = 7.0f;
 
         if(type == 2) {
