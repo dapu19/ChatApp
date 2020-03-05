@@ -14,8 +14,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
+// class handles messages being sent to Karen chat bot
 class messageKaren extends AsyncTask<String, Void, String> {
 
+    // hard coded values for ip and port where Karen is running
     private Exception exception;
     public static final String REMOTE_HOST = "54.152.68.22";
     public static final int REMOTE_PORT = 2346;
@@ -41,7 +43,7 @@ class messageKaren extends AsyncTask<String, Void, String> {
             Log.e("Message", message);
             Socket socket = new Socket(REMOTE_HOST, REMOTE_PORT);
 
-
+            // input and output streams from/to socket
             BufferedWriter sockOut = new BufferedWriter(
                     new OutputStreamWriter(socket.getOutputStream()));
             BufferedReader sockIn = new BufferedReader(

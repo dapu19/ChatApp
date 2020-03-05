@@ -29,6 +29,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 // implements messaging service for communicating with Karen ChatBot
+// consists of messaging screen which will send input to chat bot and retrieve output to be displayed on the screen
 public class KarenActivity extends AppCompatActivity {
 
     private EditText editText;
@@ -48,6 +49,7 @@ public class KarenActivity extends AppCompatActivity {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
+        // get user info from FireBase , roomId is combination of user id and Karen
         FirebaseUser user = mAuth.getCurrentUser();
         final String my_UID = user.getUid();
         roomid = my_UID + "-karen";
@@ -58,6 +60,7 @@ public class KarenActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.e("snapshot", dataSnapshot.toString());
+                // if a room does not already exist for this chat one will be created.
                 if (!(dataSnapshot.child(roomid).exists())) {
 
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -68,6 +71,7 @@ public class KarenActivity extends AppCompatActivity {
                 }
             }
 
+            // logging database errors
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                Log.e("Error", "Database Error");
@@ -87,6 +91,7 @@ public class KarenActivity extends AppCompatActivity {
 
         toolbar.setNavigationIcon(R.drawable.ic_arrow);
 
+        // toolbar which will return user to the home page
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

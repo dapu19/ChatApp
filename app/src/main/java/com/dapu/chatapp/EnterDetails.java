@@ -17,13 +17,15 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+// class implements page/activity where user can enter details about themselves.
+// details are stored using FireBase
 public class EnterDetails extends AppCompatActivity {
 
     private SeekBar ageSlider;
     private TextView displayAge;
     private FirebaseAuth mAuth;
     private EditText location;
-    int SPLASH_TIME = 5000;
+    int SPLASH_TIME = 5000; // 5 seconds
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +33,7 @@ public class EnterDetails extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                // set up layout and functions to handle inputting age values on the progress bar
                 setContentView(R.layout.activity_enter_details);
                 mAuth = FirebaseAuth.getInstance();
                 ageSlider = findViewById(R.id.SeekBar);
@@ -103,10 +106,10 @@ public class EnterDetails extends AppCompatActivity {
 
     // updates UI based on if user is signed in or not.
     public void updateUI(com.google.firebase.auth.FirebaseUser user){
-        if(user==null) {
+        if(user==null) { // not signed in user will be directed to Main page where they can sign in/up
             Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
             startActivity(myIntent);
-        }else{
+        }else{  // a signed in user will be sent to userInfo page
             Intent myIntent = new Intent(getBaseContext(), userInfo.class);
             startActivity(myIntent);
         }

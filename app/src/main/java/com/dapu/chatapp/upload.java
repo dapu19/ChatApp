@@ -32,6 +32,7 @@ public class upload extends AppCompatActivity {
     private String url;
     FirebaseUser user;
 
+    // set content view and use FireBase to get reference to user
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +43,7 @@ public class upload extends AppCompatActivity {
         img = (ImageView) findViewById(R.id.Profile);
     }
 
-    //
+    // code to handle suer choosing a file from their filesystem
     public void chooseFile(android.view.View view){
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -53,12 +54,14 @@ public class upload extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        // checks all conditions that indicate image has been selected correctly
         if(requestCode==1 && resultCode==RESULT_OK && data!=null && data.getData()!=null){
             imguri=data.getData();
             img.setImageURI(imguri);
         }
     }
 
+    // will upload the file to FireBase storage
     public void uploadFile(android.view.View view){
         //Uri file = Uri.fromFile(new File("path/to/images/rivers.jpg"));
         //StorageReference riversRef = mStorageRef.child("images/rivers.jpg");
@@ -84,6 +87,7 @@ public class upload extends AppCompatActivity {
         updateUI();
     }
 
+    // get file extension of image
     private String getExtension(Uri uri) {
         ContentResolver cr = getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();

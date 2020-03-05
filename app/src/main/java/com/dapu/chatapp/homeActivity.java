@@ -25,7 +25,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
-
+// class implements the home page for a signed in user.
+// from this page a user can be directed to logout, Karen chat bot, messaging service or re-enter details.
 public class homeActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -51,6 +52,7 @@ public class homeActivity extends AppCompatActivity {
         //How to get id for potentially messaging
         //Log.e("Token", FirebaseInstanceId.getInstance().getInstanceId().toString());
 
+        // if the user is signed in , will use FireBase to retrieve user data
         if(user != null){
             String email1 = user.getEmail();
             //String uid1 = user.getUid();

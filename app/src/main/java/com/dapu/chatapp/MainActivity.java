@@ -16,6 +16,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+// class implements main page/activity which is displayed to a user who is not signed in/up
+// allows users to sign in to an existing account or create a new account
 public class MainActivity extends AppCompatActivity {//implements RoomListener{
 
     public static final String TAG = "YOUR-TAG-NAME";
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {//implements RoomListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // set content view and get FireBase instance
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
@@ -78,10 +81,10 @@ public class MainActivity extends AppCompatActivity {//implements RoomListener{
 
     // method which will direct new user to signUp or bring a user to the home page
     public void updateUI(com.google.firebase.auth.FirebaseUser user){
-        if(user==null) {
+        if(user==null) { // if user is not signed in they will be directed to signUp page/activity
             Intent myIntent = new Intent(getBaseContext(), signUp.class);
             startActivity(myIntent);
-        }else{
+        }else{  // if user has signed in they will be directed to their home page
             Intent myIntent = new Intent(getBaseContext(), homeActivity.class);
             startActivity(myIntent);
         }

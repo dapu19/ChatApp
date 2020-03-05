@@ -8,6 +8,8 @@ import android.os.Handler;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+// implements a splash page when app is opened
+// app logo is displayed to user for 2.5 seconds
 public class Splash extends AppCompatActivity{
     int SPLASH_TIME = 2500; //This is 2.5 seconds
     private FirebaseAuth mAuth;

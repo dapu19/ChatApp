@@ -22,6 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+// class implements page/activity which will display a user a list of all users who match
+// will create lit of matches by accessing FirBase database and checking if users have a number of matches
 
 public class ListOfMatchesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
@@ -31,6 +33,7 @@ public class ListOfMatchesActivity extends AppCompatActivity implements AdapterV
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // set content vies and create a clickable list
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_of_matches);
         list = (ListView)findViewById(R.id.listView);
@@ -39,6 +42,7 @@ public class ListOfMatchesActivity extends AppCompatActivity implements AdapterV
 
         toolbar.setNavigationIcon(R.drawable.ic_arrow);
 
+        // toolbar which will return user to Home page
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,6 +111,7 @@ public class ListOfMatchesActivity extends AppCompatActivity implements AdapterV
 
     }
 
+    // allows users to be directed to a chat with a user who they match with
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
         String text = (list.getItemAtPosition(position).toString());
         String partner_UID = name_to_id.get(text);

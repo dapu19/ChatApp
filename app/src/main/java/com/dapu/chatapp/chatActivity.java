@@ -1,27 +1,24 @@
 package com.dapu.chatapp;
 
+//This program implements the chat rooms in the app
+//It implements all the necessary functions to send, receive and display messages.
+//Messages are stored in the FireBase database
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-
 import android.content.Intent;
-
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
-
 import android.view.View;
-
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -30,9 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
-
 import java.util.List;
 
 
@@ -44,7 +39,7 @@ public class chatActivity extends AppCompatActivity{
     ScrollView scrollView;
     String partner_UID;
     String roomid;
-
+    // instantiate variable for FireBase authorisation
     private FirebaseAuth mAuth;
 
     // creating array for holding messages
@@ -58,6 +53,7 @@ public class chatActivity extends AppCompatActivity{
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_page);
+        //connect to the FireBase database.
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         if(getIntent().hasExtra("Partner_UID")) {
@@ -78,9 +74,11 @@ public class chatActivity extends AppCompatActivity{
         DatabaseReference roomRef = database.getReference("users/" + roomid);
 
         roomRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            // if data change occurs using FireBase DataSnapshot
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.e("snapshot", dataSnapshot.toString());
+                // if a room for this chat does not yet exit it will be created.
                 if (!(dataSnapshot.child(roomid).exists())) {
 
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -101,7 +99,7 @@ public class chatActivity extends AppCompatActivity{
         );
 
 
-
+        // code determines layout of view
         layout = findViewById(R.id.layout1);
         layout_2 = findViewById(R.id.layout2);
 
@@ -111,7 +109,7 @@ public class chatActivity extends AppCompatActivity{
         name = findViewById(R.id.theirName);
 
         toolbar.setNavigationIcon(R.drawable.ic_arrow);
-
+        // toolbar will switch user to matches page/activity
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,7 +118,6 @@ public class chatActivity extends AppCompatActivity{
                 finish();
             }
         });
-
 
 
 
@@ -140,7 +137,7 @@ public class chatActivity extends AppCompatActivity{
             }
         });
 
-
+        // get reference to room in database
         DatabaseReference ref = database.getReference("rooms/" + roomid);
 
         ref.addChildEventListener(new ChildEventListener() {
@@ -152,10 +149,10 @@ public class chatActivity extends AppCompatActivity{
                 String userName = message.getUID();
                 if (messageText.length() > 0) {
                     // type of message used to differentiate between sender and receiver
-                    if (userName.equals(mAuth.getCurrentUser().getUid())) {
+                    if (userName.equals(mAuth.getCurrentUser().getUid())) { // sent message
                         addMessageBox(messageText, 1);
                         Log.e("my Message", messageText);
-                    } else {
+                    } else {        // received message
                         addMessageBox(messageText, 2);
                         Log.e("your Message", messageText);
                     }

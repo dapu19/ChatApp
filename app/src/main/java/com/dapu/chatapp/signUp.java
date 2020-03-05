@@ -24,6 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
+// class implements a sign up page/activity
+// user will enter in name , email and password before being allowed to proceed
 public class signUp extends AppCompatActivity {
     public static final String TAG = "YOUR-TAG-NAME";
     private EditText mail;
@@ -44,7 +46,7 @@ public class signUp extends AppCompatActivity {
     }
 
     public void register(android.view.View view) {
-
+        //  get entered user details and place them in string variables
         mail = findViewById(R.id.email);
         email = mail.getText().toString();
         pass = findViewById(R.id.password);
@@ -56,7 +58,7 @@ public class signUp extends AppCompatActivity {
         System.out.println(password);
         name = findViewById(R.id.fullName);
         fullname = name.getText().toString();
-        if(conPassword.equals(password)) {
+        if(conPassword.equals(password)) {  // checks if entered passwords match
             //updateUI(null);
 
             mAuth.createUserWithEmailAndPassword(email, password)
@@ -83,11 +85,13 @@ public class signUp extends AppCompatActivity {
         }
     }
 
+    // user will be directed back to main page
     public void goToLogin(android.view.View view) {
         Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
         startActivity(myIntent);
     }
 
+    // will add user and relevant details to database
     public void addUser(String uid, String name){
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -101,7 +105,7 @@ public class signUp extends AppCompatActivity {
         if(user==null) {
             Intent myIntent = new Intent(getBaseContext(), homeActivity.class);
             startActivity(myIntent);
-        }else{
+        }else{  // if user signs up they will be sent to page/activity where they can enter details
             Intent myIntent = new Intent(getBaseContext(), EnterDetails.class);
             startActivity(myIntent);
         }

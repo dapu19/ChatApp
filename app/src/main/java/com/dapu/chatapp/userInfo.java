@@ -15,7 +15,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-
+// class implements page/activity where user will enter details about themselves
+// user details are stored on FireBase
 public class userInfo extends AppCompatActivity {
     int SPLASH_TIME = 2500; //This is 2.5 seconds
     private FirebaseAuth mAuth;
@@ -44,6 +45,7 @@ public class userInfo extends AppCompatActivity {
         buttons.add(choice5);
     }
 
+    // implements fields which the user will chose their interests from
     public void getInfo(android.view.View view){
         for(int i = 0; i < 9; i++ ){
             String str = "field" + i;
